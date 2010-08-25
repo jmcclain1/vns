@@ -1,0 +1,31 @@
+*SVN*
+
+* Add proper terminator character at the end of statements produced when dumping schema information.  Fixes #16
+
+*0.1.0* (March 31st, 2007)
+
+* Refactor plugin_migrations.rb into files specific to each class being extended
+
+* Support running tests with plugins loaded via edge pluginaweek.  Fixes #10 [Brian Takita]
+
+* Updated to use the new Plugin interface
+
+* Added empty files so that test directories get added to the gem
+
+*0.0.2* (February 3rd, 2007)
+
+* Released as a gem
+
+* Added tests
+
+* Refactored tasks so that they could be tested
+
+* You can now specify PLUGINS and VERSION at the same time in the migration task
+
+* You can now specify PLUGINS and FIXTURES at the same time in the fixtures task
+
+* The plugin_migrations plugin doesn't access the LOADED_PLUGINS variable correctly (Peter Marklund). 
+
+*0.0.1* (November 5th, 2006)
+
+* Initial release

@@ -1,0 +1,1 @@
+load_plugin(find_plugins(configuration.plugin_paths).find {|path| path =~ /\/dependent_plugin$/})

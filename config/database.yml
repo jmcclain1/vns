@@ -1,0 +1,49 @@
+# These settings are shared
+generic: &generic
+  #database: don't specify one here!  Set it below.
+  adapter: mysql
+  username: pivotal
+  password: password
+  host: localhost
+  socket: /tmp/mysql.sock
+  encoding: utf8
+
+test:
+  database: vns_test
+  <<: *generic
+
+development:
+  database: vns_development
+  <<: *generic
+
+evd_ro:
+  database: evd_ii
+  username: rails_evd
+  password: password
+  <<: *generic
+
+evd_rw:
+  database: evd_development
+  <<: *generic
+
+fdevelopment:
+  database: vns_development
+  <<: *generic
+
+local:
+  database: vns_development
+  <<: *generic
+
+demo:
+  database: vns_demo
+  <<: *generic
+
+production:
+  database: vns_production
+  <<: *generic
+  username: vns
+
+evd_ii:
+  database: evd_ii
+  <<: *generic
+    

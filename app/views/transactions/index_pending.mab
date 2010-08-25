@@ -1,0 +1,5 @@
+transacting_subnavbar :active_tab => 'Pending'
+
+div :id => 'scrollable_content' do
+  h4 "Pending transactions here..."
+end

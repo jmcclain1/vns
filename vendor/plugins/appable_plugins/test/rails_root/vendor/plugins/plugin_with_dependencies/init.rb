@@ -1,0 +1,1 @@
+require 'plugins_dependent_plugin'

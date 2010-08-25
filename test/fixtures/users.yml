@@ -1,0 +1,96 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: users
+#
+#  id                        :integer(11)     not null, primary key
+#  email_address             :string(255)     
+#  encrypted_password        :string(255)     
+#  created_at                :datetime        
+#  updated_at                :datetime        
+#  unique_name               :string(255)     
+#  account_validated         :boolean(1)      
+#  salt                      :string(255)     
+#  super_admin               :boolean(1)      
+#  terms_of_service_id       :integer(11)     
+#  dealership_id             :integer(11)     
+#  status                    :string(255)     default("inactive")
+#  sms_address               :string(255)     
+#  sms_wants_any_sms         :boolean(1)      default(TRUE)
+#  sms_wants_new_offer       :boolean(1)      
+#  sms_wants_listing_expired :boolean(1)      
+#  sms_wants_inquiry         :boolean(1)      
+#  sms_wants_reply           :boolean(1)      
+#  sms_wants_auction_won     :boolean(1)      
+#  sms_wants_auction_lost    :boolean(1)      
+#  sms_wants_auction_cancel  :boolean(1)      
+#
+
+
+bob:
+  id: 1
+  encrypted_password: db9c93f05d2e41dc2256c3890d5d78ca6e48d418
+  email_address: bob@example.com
+  unique_name: validbob
+  account_validated: true
+  salt: change-me
+  dealership_id: 23001
+  status: active
+  sms_address: 9091231234@vtext.com
+  sms_wants_any_sms: true
+  sms_wants_new_offer: true
+  sms_wants_inquiry: true
+
+alice:
+  id: 2
+  encrypted_password: db9c93f05d2e41dc2256c3890d5d78ca6e48d418
+  email_address: alice@example.com
+  unique_name: validalice
+  account_validated: true
+  salt: change-me
+  dealership_id: 23001
+  status: inactive
+
+charlie:
+  id: 3
+  encrypted_password: db9c93f05d2e41dc2256c3890d5d78ca6e48d418
+  email_address: charlie@example.com
+  unique_name: validcharlie
+  account_validated: true
+  salt: change-me
+  dealership_id: 23002
+  status: active
+  sms_address: 21232154321@vtext.com
+  sms_wants_any_sms: true
+  sms_wants_new_offer: true
+  sms_wants_listing_expired: true
+
+cathy:
+  id: 4
+  encrypted_password: db9c93f05d2e41dc2256c3890d5d78ca6e48d418
+  email_address: cathy@example.com
+  unique_name: validcathy
+  account_validated: true
+  salt: change-me
+  dealership_id: 23004
+  status: expired
+
+rob:
+  id: 5
+  encrypted_password: db9c93f05d2e41dc2256c3890d5d78ca6e48d418
+  email_address: rob@example.com
+  unique_name: validrob
+  account_validated: true
+  salt: change-me
+  dealership_id: 23003
+  status: active
+
+rob2:
+  id: 6
+  encrypted_password: db9c93f05d2e41dc2256c3890d5d78ca6e48d418
+  email_address: rob2@example.com
+  unique_name: validrob2
+  account_validated: true
+  salt: change-me
+  dealership_id: 23001
+  status: active

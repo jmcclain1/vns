@@ -1,0 +1,19 @@
+*SVN*
+
+* Support loading gem tasks
+
+* Support specifying plugin gems in configuration.plugins
+
+* Support using require/load to add dependencies on plugin gems
+
+*0.0.2* (February 1st, 2007)
+
+* Added unit tests
+
+* Added support for installation as a gem
+
+* Improved exception consistency with 'require'
+
+*0.0.1* (November 11th, 2006)
+
+* Initial release

@@ -1,0 +1,56 @@
+valid_user:
+  id: 1
+  encrypted_password: <%= User.encrypt("password", "change-me") %>
+  email_address: bob@example.com
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  unique_name: valid_bob
+  account_validated: true
+  salt: change-me
+  terms_of_service_id: 3
+
+second_valid_user:
+  id: 2
+  encrypted_password: <%= User.encrypt("password", "change-me-sucka") %>
+  email_address: second_valid_user@example.com
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  unique_name: valid_huang
+  account_validated: true
+  salt: change-me-sucka
+  terms_of_service_id: 3
+
+unvalidated_user:
+  id: 3
+  encrypted_password: <%= User.encrypt("password", "change-me-tool") %>
+  email_address: unvalidated_user@example.com
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  unique_name: unknown_johnson
+  account_validated: false
+  salt: change-me-tool
+  terms_of_service_id: 3
+
+user_with_old_tos:
+  id: 4
+  encrypted_password: <%= User.encrypt("password", "change-me-tool") %>
+  email_address: old_tos@example.com
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  unique_name: old_tos
+  account_validated: true
+  salt: change-me-tool
+  terms_of_service_id: 2
+
+admin:
+  id: 5
+  encrypted_password: <%= User.encrypt("password", "change-me-tool") %>
+  email_address: admin@example.com
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  unique_name: admin
+  account_validated: true
+  salt: change-me-tool
+  terms_of_service_id: 3
+  super_admin: true
+

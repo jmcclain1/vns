@@ -1,0 +1,53 @@
+*SVN*
+
+* Add more tests to verify mixing of classes in namespaces
+
+* No longer assume that all directories under app are mixable.  This can especially cause issues if it finds a views directory.
+
+* Simplify method for determining namespaces
+
+* Fix not mixing namespaced classes correctly when defined in both the plugin and the application
+
+*0.1.0* (March 31st, 2007)
+
+* Don't add app/* paths to Dependencies.load_once_paths.  Closes #7
+
+* Add default support for app/services/*_service.rb paths
+
+* No longer deals directory with Rails::Initializer.load_plugin, instead moving all initialization code to the Plugin class
+
+* Added default support for app/apis/*_api.rb paths
+
+* Added better support for injecting dependencies for plugins when being loaded midway through initialization
+
+* Smarter location of app paths in $LOAD_PATH, Dependencies.load_paths, and Dependencies.load_once_paths. [Brian Takita]
+
+* Refactor appable_plugins.rb into files for each individual class being extended. #12 [Brian Takita]
+
+* Fix loading the incorrect files when the path given in require/load is absolute.  Closes #11
+
+* Support running tests with plugins loaded via edge pluginaweek.  #10 [Brian Takita]
+
+* Properly load plugins once Rails has been initialized
+
+* Updated to use the new Plugin interface
+
+* No longer caches all files immediately upon initialization
+
+* Code-mixing is much more paranoid now, making sure that if a file like "actor.rb" is being loaded, that file is really a model
+
+* Fixes loading files in the incorrect order when using plugin dependencies
+
+* Added empty files so that test directories get added to the gem
+
+*0.0.2* (February 2nd, 2007)
+
+* Paths no longer end in / to remain consistent with Rails conventions
+
+* Files are now loaded in the correct order for plugins that were loaded as dependencies
+
+* The location of new folders in the LOAD_PATH is now based on the current location of the app's lib folder
+
+*0.0.1* (November 14th, 2006)
+
+* Initial release

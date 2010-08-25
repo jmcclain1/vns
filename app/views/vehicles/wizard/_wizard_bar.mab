@@ -1,0 +1,34 @@
+def selectable_list_item(content, number, selected = false)
+  classname = (selected) ? 'active' : ''
+  li :class => classname do
+    div.content do
+      span.position do
+        text number
+      end
+      span.text do
+        text content
+      end
+    end
+  end
+end
+
+div :id => 'wizard_bar' do
+  div :class => 'left_cap' do
+  end
+
+  div :class => 'right_cap' do
+  end
+  
+  ol :class => 'h_list' do
+    [
+      "Enter VIN",
+      "Select Vehicle",
+      "Complete Vehicle Details",
+      "Add Photos",
+      "Summary"
+    ].each_with_index do |step_title, index|
+      selectable_list_item(step_title, (index+1), ((index+1) == current_step))
+    end
+  end
+
+end

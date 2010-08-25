@@ -1,0 +1,196 @@
+= plugin_dependencies
+
+plugin_dependencies provide Rails developers with the ability to define any
+dependencies on plugins (either installed within the application or as a gem).
+
+== Resources
+
+Wiki
+
+* http://wiki.pluginaweek.org/Plugin_dependencies
+
+Announcement
+
+* http://www.pluginaweek.org/2006/10/31/1-plugin_dependencies-who-do-you-depend-on/
+* http://www.pluginaweek.org/2006/11/05/plugin-dependencies-revisited/
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/rails/plugin_dependencies
+
+Development
+
+* http://dev.pluginaweek.org/browser/trunk/plugins/rails/plugin_dependencies
+
+== Usage
+
+[See http://dev.rubyonrails.org/ticket/6418 for proposed Rails core patch]
+
+The current convention within Rails is to load plugins in alphabetical order.
+This poses a problem when certain plugins must be loaded before others.
+
+For example, suppose you write a plugin called acts_as_addressable that uses the
+acts_as_enumerated plugin by Trevor Squires at
+http://svn.protocool.com/rails/plugins/enumerations_mixin/.  You would then have
+a directory structure like the following:
+
+  vendor/
+  vendor/plugins
+  vendor/plugins/acts_as_addressable
+  vendor/plugins/acts_as_enumerated
+
+Ordered alphabetically, acts_as_addressable will be loaded BEFORE
+acts_as_enumerated.  This could potentially cause issues if you were assuming in
+your plugin that acts_as_enumerated had already been loaded.
+
+One solution to this problem is to rename the directories in the way migrations
+are named, i.e.
+
+  vendor/
+  vendor/plugins
+  vendor/plugins/001_acts_as_enumerated
+  vendor/plugins/002_acts_as_addressable
+
+As of Rails 1.2, a second solution is to explicitly specify the order of your
+plugins with your environment configuration, like so:
+
+  Rails::Initializer.run do |config|
+    config.plugins = [
+      'acts_as_enumerated',
+      'acts_as_addressable'
+    ]
+  end
+
+While both solutions may be a sufficient solution for projects using very few
+plugins, there are two major issues:
+1. What happens when your dependencies become numerous and complex?
+1. What happens to your dependencies if you want to release your plugin as a gem?
+
+These issues cause the previous two solutions to no longer become a maintainable
+design.
+
+This plugin addresses these issues by giving all plugins/gems the ability to
+define what other plugins they depend on using a similar api to that of gems.
+For example, the acts_as_addressable.rb would look like the following:
+
+acts_as_addressable/lib/acts_as_addressable.rb:
+  require 'acts_as_enumerated'
+  ...
+
+When Rails is initialized, even though acts_as_addressable.rb will be executed
+first, the require does two things:
+(1) Ensure that the acts_as_enumerated plugin is present in the project.  If
+it's not, an exception will be thrown.
+(2) Load the acts_as_enumerated plugin and then continue initialization of the
+acts_as_addressable plugin.
+
+This gives plugin developers the ability to add descriptive information about
+dependencies directly within their plugins rather than forcing the load order
+based on the directory names.
+
+== Alternatives
+
+In addition to using require, you can also use require_plugin or just plugin,
+for example:
+
+  require_plugin 'xyz_plugin'
+  plugin 'xyz_plugin'
+
+The difference is that it will only search your plugin directories and not
+gems or anything in any other load path.  This is important because if you are
+planning on depending on a plugin that could also be a gem, then 'require'
+would be the best api to use.
+
+== Loading plugin gems
+
+If you've installed a plugin as a gem, you can load that plugin within your
+Rails application by explicitly specfying it within your environment
+configuration like so:
+
+config/environment.rb:
+  ...
+  Rails::Initializer.run do |config|
+    config.plugins = [
+      'acts_as_enumerated',
+      ['acts_as_commentable', '>= 1.0.0']
+    ]
+  end
+
+In the above example, all plugins specified in config.plugins will either be
+loaded in from the application's installed plugins or from the your Ruby's
+gem path.  Application plugins will always override gem plugins.
+
+If a gem plugin is being loaded, version requirements can be specified as shown
+in the acts_as_commentable configuration.  The format of version requirements
+is the same as you can normally specify with gems.
+
+== Loading gem tasks
+
+If you've installed plugin_dependencies as a gem, you will need to add
+tasks/plugin_dependencies_tasks.rake to your application's lib/tasks folder.
+Otherwise, if plugin_dependencies is installed as a plugin within your
+application, you will not need to make any changes.
+
+== How to get started
+
+To use this plugin, you can either install it as a gem or use it as a plugin
+within your project.
+
+=== Installing as a gem
+
+If installed as a gem, you must modify your config/environment.rb to require
+the plugin before you run Rails::Initializer.  For example,
+
+  require 'plugin_dependencies'
+  
+  Rails::Initializer.run do |config|
+    ...
+  end
+
+=== Installing as a plugin
+
+If you installing plugin_dependencies a plugin within your project, the
+following must be added within your config/environment.rb to ensure that the
+plugin is the first one loaded.
+
+  module Rails
+    class Initializer
+      def load_plugins
+        find_plugins(configuration.plugin_paths).each {|path| load_plugin path}
+        $LOAD_PATH.uniq!
+      end
+    end
+  end
+  
+  Rails::Initializer.run do |config|
+    config.plugin_paths = [
+      RAILS_ROOT + '/vendor/plugins/prerequisites',
+      RAILS_ROOT + '/vendor/plugins'
+    ]
+  end
+
+This code does the following:
+1. It changes the Rails initializer so that plugins are loaded in the order
+that you specify them, rather than in alphabetical order.
+1. It sets the plugin paths, ensuring that the 'prerequisites' folder will be
+loaded before any other folders.  In this case, the plugin_dependencies plugin
+should be the ONLY plugin in the 'prerequisites' folder.
+
+You can also load it using config.plugins like so:
+
+config/environment.rb:
+  ...
+  Rails::Initializer.run do |config|
+    config.plugins = [
+      'plugin_dependencies',
+      ...
+    ]
+  end
+
+== Caveats
+
+If installing plugin_dependencies as a plugin, your other plugins will no longer
+be loaded in alphabetical order, be careful that they continue to be loaded in
+the order that you expect them.  Plugins were originally made to load in
+alphabetical order to remain consistent across all platforms.  This change
+should NOT affect most people.

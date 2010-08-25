@@ -1,0 +1,86 @@
+# read_only is a local variable passed in as part of the locals hash, BUT the Markaby behind-the-scenes magic
+# renders unavailable locals passed in to partials in this way.  However, Markaby stuffs these locals into its
+# assigns hash, so we can reference it here as a member variable.  Clear as mud?
+@read_only = false unless defined?(@read_only)
+@seller_view = false unless defined?(@seller_view)
+
+# stylesheet 'vehicles'
+
+div :id => 'details' do
+
+  unless @read_only
+    render :partial => '/vehicles/edit_details_popup', :locals => { :vehicle => @vehicle }
+  end
+
+  div :class => 'content', :id => 'edit_vehicle_details_display' do
+    h2 'Vehicle Details'
+    
+    unless @read_only
+      form_btn("Edit Vehicle Details",
+               :id => 'edit_vehicle_details_popup_toggle_button',
+               :onclick => "$('edit_vehicle_details_popup').toggle(); $('edit_vehicle_details_display').toggle();")
+    end
+    
+    br.clear
+
+    link_to(image_tag('carfax.jpg'), vehicle.carfax_link, :popup => true, :class => 'carfax_logo')
+    
+    render :partial => '/vehicle_photos/widget', :locals => { :read_only => @read_only }
+
+    table.clear :id => 'review' do
+      fields_list(@vehicle,
+        VehicleField::ALL.some(
+          :stock_number,
+          :vin,
+          :year,
+          :make_name,
+          :model_name,
+          :trim_name,
+          :engine_name,
+          :drive_name,
+          :transmission_name,
+          :odometer,
+          :exterior_color,
+          :interior_color,
+          :title,
+          :title_state,
+          :certified,
+          :frame_damage,
+          :prior_paint,
+          :location), 'vehicle_fields', nil, true)
+      if @seller_view
+        fields_list(@vehicle,
+          VehicleField::ALL.some(
+            :actual_cash_value,
+            :cost
+        ), 'vehicle_fields', nil, true)
+      end
+    end
+
+    br.clear
+
+    h3.clear 'Comments'
+    div :id => 'comments_box' do
+      text vehicle.comments ? vehicle.comments : "[none]"
+    end
+
+    br.clear
+
+    h3 'Vehicle equipment'
+    div :id => 'vehicle_equipment_list' do
+      if @vehicle.features.size > 0
+        ul do
+          @vehicle.features.each do |feature|
+            li feature.name
+          end
+        end
+      else
+        text "[none]"
+      end
+      br.clear
+    end
+
+  end
+
+  div(:class => "clear") {}
+end

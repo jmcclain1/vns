@@ -1,0 +1,28 @@
+page[:buying_popup].hide if logged_in_user.prospects_with_alerted_notifications.size == 0
+
+page[:buying_popup].replace_html :partial => '/notifications/popups/buying',
+                                 :locals => { :prospects => logged_in_user.prospects_with_alerted_notifications }
+
+navbar_buying_span_content = navbar_link(:count => logged_in_user.count_for_buying_tab,
+                                         :unseen_count => logged_in_user.prospects_with_alerted_notifications.size,
+                                         :label => 'buying',
+                                         :target => prospects_path)
+navbar_buying_span_content += navbar_alert_link(:label => 'buying',
+                                                :unseen_count => logged_in_user.prospects_with_alerted_notifications.size)
+
+page[:navbar_buying_li].replace_html navbar_buying_span_content
+
+
+page[:selling_popup].hide if logged_in_user.listings_with_alerted_notifications.size == 0
+
+page[:selling_popup].replace_html :partial => '/notifications/popups/selling',
+                                  :locals => { :listings => logged_in_user.listings_with_alerted_notifications }
+
+navbar_selling_span_content = navbar_link(:count => logged_in_user.count_for_selling_tab,
+                                          :unseen_count => logged_in_user.listings_with_alerted_notifications.size,
+                                          :label => 'selling',
+                                          :target => listings_path)
+navbar_selling_span_content += navbar_alert_link(:label => 'selling',
+                                                 :unseen_count => logged_in_user.listings_with_alerted_notifications.size)
+
+page[:navbar_selling_li].replace_html navbar_selling_span_content

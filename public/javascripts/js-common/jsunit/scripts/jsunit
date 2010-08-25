@@ -1,0 +1,28 @@
+. /etc/jsunit.env
+
+JSUNIT=/usr/local/bin/ant
+JSUNITARGS="-f /usr/local/share/jsunit/build.xml -Djsunit.browserFileNames=/usr/local/share/jsunit/bin/unix/start-firefox.sh;/usr/local/share/jsunit/bin/unix/stop-firefox.sh;firefox  start_server"
+PIDFILE=/var/run/jsunit.pid
+
+case "$1" in
+ start)
+    echo -n "Starting jsunit server..."
+    start-stop-daemon --start --pidfile $PIDFILE --make-pidfile --exec $JSUNIT -- $JSUNITARGS >> /var/log/jsunit.log &
+    echo "."
+    ;;
+  stop)
+    echo -n "Stopping jsunit server..."
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    echo "."
+    ;;
+  restart)
+    $0 stop
+    sleep 2
+    $0 start
+    ;;
+  *)
+        echo "Usage: /etc/init.d/jsunit {start|stop|restart}"
+        exit 1
+esac
+
+exit 0

@@ -1,0 +1,7 @@
+#scaffold {
+  width: expression(document.body.clientWidth < 800 ? "800px" : "100%");
+}
+
+html {
+  overflow: auto;
+}

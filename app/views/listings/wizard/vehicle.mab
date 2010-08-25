@@ -1,0 +1,66 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1.task "Create Wholesale Listing"
+end
+
+form_tag(listing_vehicle_path(@listing).to_s, {:id => 'listing_form', :method => :put})
+
+  text render(:partial => '/listings/wizard/wizard_bar', :locals => { :current_step => 1 })
+
+  task_box(self) do
+          td.helper do
+            h3 do
+              span :class => 'step' do
+                text "Step 1: "
+              end
+              text "Select Vehicle"
+            end
+            p "Enter the Inventory Stock # or VIN # and the VNS system will retrieve the inventory item and all its details."
+            b "An exact match is required."
+            p do
+              b "Don't know the Stock # or VIN #?"
+            end
+            a :href => '#' do
+              text "Search or browse your inventory"
+            end
+          end
+          td.content do
+            render_error_messages
+
+            h3 "Enter Inventory Stock # or VIN #"
+            p.strong  "Vehicle with:"
+            fieldset :id => 'enter_number' do
+              span.label "Stock # "
+              text_field_tag(:stock_number, params[:stock_number])
+              span.aor "or"
+              span.label "Vin # "
+              text_field_tag(:vin, params[:vin])
+            end
+
+            unless drafts.empty?
+              div(:id => 'drafts') do
+                h3 "Or continue entering a saved draft..."
+                p do
+                  text "Here are all the vehicles your dealership has started created listings for. Select one to continue creating the listing."
+                end
+                ul do
+                  for draft in drafts do
+                    li do
+                      link_to draft.vehicle_name, listing_info_path(draft)
+                      text " (#{draft.vehicle_info})"
+                    end
+                  end
+                end
+              end
+            end
+          end
+  end
+
+  form_btn 'Proceed to Complete Vehicle Information', :id => 'proceed_button', :class => 'task_button', :onclick => "$('listing_form').submit();"
+
+end_form_tag

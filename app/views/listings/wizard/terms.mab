@@ -1,0 +1,68 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1.task "Create Wholesale Listing"
+end
+
+form_tag(listing_terms_path(@listing).to_s, {:method => :put, :id => 'the_form'})
+
+  text render(:partial => '/listings/wizard/wizard_bar', :locals => { :current_step => 3 })
+
+  task_box(self) do
+    td.helper do
+      h3 do
+        span :class => 'step' do
+          text "Step 3: "
+        end
+        text "Specify Terms"
+      end
+      p "Specify the terms of the wholesale listing."
+    end
+    td.content do
+      render_error_messages
+
+
+      h3 "Enter Asking Price"
+
+      div.asking_price_box do
+        label do
+          text "Asking price (in US$) "
+          text_field('listing', 'asking_price')
+        end
+      end
+
+      div.question_box do
+        h4 "How much do I have invested in this vehicle?"
+        span "My Cost: $#{listing.vehicle_cost.nil? ? 'N/A' : ('%.2f' % listing.vehicle_cost)}"
+        br.clear
+        span "Days in inventory: #{listing.vehicle_days_in_inventory}"
+      end
+
+      text clear_floats
+
+      text render(:partial => '/listings/wizard/auction_period')
+
+      h3 "Set Inspection Period"
+      p do
+        text "The inspection period provides the option for a buyer to view a vehicle within a limited amount of time to complete a purchase after the seller has accepted an offer."
+        text " VNS allows you the seller to edit the inspection period, or except an inspection term offered by a purchasing dealer at any time until you accept an offer."
+      end
+      label do
+        text "Select Inspection Duration "
+        select_helper(:listing, :inspection_duration, Period.all_for_select, :include_blank => true)
+      end
+
+      h3 "Trade Rules - VNS Commitment and Transaction Process"
+      label.bottom do
+        check_box('listing', :accept_trade_rules)
+        text " Accept Trade Rules"
+      end
+    end
+  end
+
+  form_btn "Proceed to Select Recipients", :id => 'proceed_button', :class => 'task_button', :onclick => '$("the_form").submit();'
+end_form_tag

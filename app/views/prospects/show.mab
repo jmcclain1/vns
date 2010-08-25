@@ -1,0 +1,83 @@
+content_for(:subnav) do
+  div :class => 'tab' do
+    a 'Inbox', {:href => prospects_path}, :id => 'prospect_inbox'
+  end
+  div :class => 'tab' do
+    a 'Find Vehicles', {:href => new_prospect_path}
+  end
+  div :class => 'tab' do
+    a 'Shopping List', {:href => shopping_items_path}
+  end
+  @tab_id = tablist_add(:id => prospect.id, 
+                        :name => prospect.listing.vehicle_name, 
+                        :href => prospect_path(@prospect).to_s)
+  text tablist_paint
+end
+
+div :id => 'vehicle_summary' do
+  img(:src => @vehicle.primary_photo.versions[:small].url)
+
+  div :id => 'information' do
+    div :id => 'basic_information' do
+      h1 @prospect.listing.vehicle_name
+      div do
+        span.value "#{@vehicle.odometer} Miles"
+        text ", "
+        span.value "#{@vehicle.exterior_color.name}/#{@vehicle.interior_color.name}"
+        text " #{@vehicle.doors} Doors, #{@vehicle.transmission_name}, #{@vehicle.drive_name}"
+      end
+    end
+
+    div :id => "listing_box" do
+      div.field do
+        text "Asking Price: "
+        span.value "#{@prospect.listing.asking_price.to_currency} "
+      end
+      div.field do
+        text "Current High Offer: "
+        span.value "#{high_offer(@prospect.listing)}"
+      end
+      div.field do
+        timing(@prospect.listing, :winner => @prospect.winner?)
+        text " (#{@prospect.listing.auction_end})"
+      end
+    end
+  end
+
+  br.clear
+end
+
+div :id => 'details_tabs' do
+  tertiary_tab('listing_details', true)
+  tertiary_tab('messages_and_offers')
+end
+
+div :id => 'details' do
+  div :id => 'scrollable_content' do
+    div(:id => 'details_and_messages') do
+      tertiary_tab_content(self, 'listing_details', true) do
+        render :partial => '/vehicles/details', :locals => { :read_only => true, :seller_view => false }
+      end
+
+      tertiary_tab_content(self, 'messages_and_offers') do
+        h3(:id => 'messages_and_offers_with_lister_heading') {"Messages & Offers with #{prospect.listing.lister.full_name}"}
+         
+        spot_market_seller_info(@prospect)
+        spot_market_active_offer(@prospect)
+        spot_market_send_offer(@prospect)
+        spot_market_send_message(@prospect, 'Buyer')
+        br.clear
+        h4 "Prospect History:"
+        spot_market_event_history(@prospect)
+      end
+
+      div(:style => "clear:both") {}
+    end
+  end
+end
+
+if params[:panel] == 'offer'
+  script do
+    text "VNS.FormHelper.toggle_windowshade_form($('spot_market_send_offer_#{@prospect.id}'));"
+  end
+end

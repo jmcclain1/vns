@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CONF_DIRS="/u/apps/tracker2/current/config/mongrel_demo"
+
+/etc/init.d/mongrel_cluster_common $1 $CONF_DIRS

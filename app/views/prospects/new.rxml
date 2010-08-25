@@ -1,0 +1,59 @@
+def year_column(listing)
+  markaby do
+    span.data listing.vehicle.year.to_s
+  end
+end
+
+def make_model_column(listing)
+  markaby do
+    make_model_info(listing, prospect_preview_path(:listing_id => listing).to_s)
+    form_tag(prospects_path(:listing_id => listing).to_s, {:id => "add_to_inbox_form_#{listing.id}"})
+      form_btn 'Add to my inbox', :id => "add_to_inbox_#{listing.id}", :onclick => "$('add_to_inbox_form_#{listing.id}').submit();"
+    end_form_tag
+  end
+end
+
+def distance_column(listing)
+  markaby do
+    span.data listing.dealership.location.distance_from(logged_in_user.location).round.to_s + " Miles"
+    br.clear
+    span.distance_from "from Zip #{logged_in_user.dealership.postal_code}"
+  end
+end
+
+def price_column(listing)
+  markaby do
+    price_info(listing)
+    form_tag(prospects_path(:listing_id => listing).to_s, {:id => "make_offer_#{listing.id}"})
+      form_btn 'Make Offer', :class => "small_button", :onclick => "$('make_offer_#{listing.id}').submit();"
+    end_form_tag
+  end
+end
+
+def status_column(listing)
+  high_offer = high_offer(listing)
+  markaby do
+    timing(listing, :winner => false)
+    br.clear
+    text "High Offer: #{high_offer}"
+  end
+end
+
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.tag!("ajax-response") do
+  xml.response(:type => "object", :id => "find_listings_grid") do
+    xml.rowcount @total_rows if @want_row_count
+    xml.rows :update_ui => true, :offset => @offset do
+      for listing in @listings
+        xml.tr do
+          xml.td {|d| d << year_column(listing) }
+          xml.td {|d| d << make_model_column(listing) }
+          xml.td {|d| d << mileage_column(listing) }
+          xml.td {|d| d << distance_column(listing) }
+          xml.td {|d| d << price_column(listing) }
+          xml.td {|d| d << status_column(listing) }
+        end
+      end
+    end
+  end
+end

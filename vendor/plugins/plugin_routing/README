@@ -1,0 +1,167 @@
+= plugin_routing
+
+plugin_routing adds the ability for plugins to share views (including layouts
+and ActionMailer templates) with the rest of your application.
+
+== Resources
+
+Wiki
+
+* http://wiki.pluginaweek.org/Plugin_routing
+
+Announcement
+
+* http://www.pluginaweek.org/2006/11/24/6-plugin_routing-share-your-views-with-the-world/
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/action_pack/plugin_routing
+
+Development
+
+* http://dev.pluginaweek.org/browser/trunk/plugins/action_pack/plugin_routing
+
+== Background Information
+
+If you're building a product line or even a group of Rails applications, you may
+find that you're duplicating views, layouts, or other User Interface templates
+throughout these applications.  This can become difficult to maintain unless
+this common code can somehow be shared via a single source.
+
+With plugin_routing, you can now share these view templates within your group
+of applications by storing them in a plugin with the familiar app/ directory
+structure:
+
+  plugin_xyz/
+  plugin_xyz/app/
+  plugin_xyz/app/views/
+  plugin_xyz/app/views/layouts
+  plugin_xyz/app/views/shared/
+  etc.
+
+You can add views for a specific controller, just as you would within your
+actual Rails application.  In addition, you can store both layouts and
+partials within a shared folder.
+
+All in all, plugin_routing can support the sharing of User Intefaces with the
+following types of Rails components:
+* Routes
+* Controller views
+* Controller layouts
+* Mailer templates
+
+For the following sections, the examples will assume you have a plugin like the
+following:
+
+  user_skeleton/
+  user_skeleton/app/
+  user_skeleton/app/controllers
+  user_skeleton/app/controllers/users_controller.rb
+  user_skeleton/app/mailers/user_notifier.rb
+  user_skeleton/app/views/
+  user_skeleton/app/views/layouts/users.rhtml
+  user_skeleton/app/views/user_notifier/sign_up_notification.rhtml
+  user_skeleton/app/views/users/sign_in.rhtml
+  user_skeleton/app/views/users/sign_out.rhtml
+  user_skeleton/app/views/shared/_user_profile.rhtml
+
+NOTE: In order for the UsersController to be functional, you would need to
+install the appable_plugins plugin (http://wiki.pluginaweek.org/Appable_plugins).
+
+== Routes
+
+Routes define how a URL is mapped to a specific controller/action.  You can
+normally find this information under config/routes.rb in your main application.
+You can read more information about routes at http://manuals.rubyonrails.com/read/chapter/65.
+This will give an in-depth description of the functionality.
+
+With plugin_routing, any named routes for shared controllers will be able to be
+used along with the views for that controller (assuming you are also using the
+engines plugin or appable_plugins).  For example, the following would map to
+our plugin's UsersController and sign_in action:
+
+config/routes.rb:
+  ...
+  map.sign_in 'users/sign_in', :controller => 'users', :action => 'sign_in'
+  ...
+
+== Controller views
+
+This is the core functionality of the plugin.  You can add views that are tied
+to a specific action of a controller as you normally would in your application.
+In the user_skeleton example, we would have a controller that looks like the
+following:
+
+user_skeleton/app/controllers/users_controller.rb:
+  class UsersControler < ActionController::Base
+    def sign_in
+    end
+    
+    def sign_out
+    end
+  end
+
+In this case, we need to associate the sign_in and sign_out actions with a view.
+As you would expect, these are stored in the plugin's 'views' folder.
+
+== Controller layouts
+
+If you're packaging a controller within a plugin along with views, you're likely
+to also include a layout for that controller.  Again, Rails conventions are
+followed by storing layouts within app/views/layouts.  For example,
+
+user_skeleton/app/views/layouts/users.rhtml:
+  Welcome!
+  
+  <%= @content_for_layout %>
+  
+  Goodbye!
+
+== Mailer templates
+
+Mailer templates are really just e-mails.  For example, you might be using
+ActionMailer to send e-mail when new users sign up or for other types of
+notifications.  Normally, templates are found under the app/views folder just
+like controllers.  For example, consider the case that we had the following
+notifier in user_skeleton:
+
+user_skeleton/app/mailers/user_notifier.rb:
+  class UserNotifier < ActionMailer::Base
+    def sign_up_notification
+    end
+  end
+
+In this case, the actual body of the e-mail would be found under the templates
+folder.  So, for example, the template would look like the following:
+
+user_skeleton/app/views/user_notifier/sign_up_notification.rhtml:
+  Hey you!
+  
+  You just joined our website!
+  
+  Cool!
+
+== Priority of views
+
+A very important aspect of routing_plugins that should be noted is the fact that
+there exists a priority in which views are rendered.  For example, consider the
+scenario where you've just downloaded an open-source user_skeleton plugin.
+However, you don't like the layout or maybe you don't like one of the views.
+This won't be a problem, because your application can ALWAYS override
+views/templates from plugins.
+
+routing_plugins will FIRST look within your application for a specific view.  If
+it cannot be found, then it will search through your plugins in the reverse
+order in which they were loaded.  So, for example, if xyz_plugin were loaded
+after abc_plugin, then any views in xyz_plugin will override the same views
+in abc_plugin.
+
+== Dependencies
+
+This plugin depends on the presence of the following plugins:
+* loaded_plugins - http://wiki.pluginaweek.org/Loaded_plugins
+
+== Credits
+
+Thanks to James Adam and his Engines plugin for providing an implementation
+upon which this plugin is based (http://www.rails-engines.org/).

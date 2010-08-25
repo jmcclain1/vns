@@ -1,0 +1,38 @@
+ritual_coffee_roasters:
+  id: 1
+  address: 1026 Valencia Street
+  city: San Francisco
+  region: CA
+  postal_code: 94110
+  country: US
+  latitude: 37.756483
+  longitude: -122.421223
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact
+
+papa_toby:
+  id: 2
+  address: 3248 22nd Street
+  city: San Francisco
+  region: CA
+  postal_code: 94110
+  country: US
+  latitude: 37.755499
+  longitude: -122.419732
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact
+
+dolores_park_cafe:
+  id: 3
+  address: 501 Dolores Street
+  city: San Francisco
+  region: CA
+  postal_code: 94110
+  country: US
+  latitude: 37.761368
+  longitude: -122.425847
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact

@@ -1,0 +1,308 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: vehicles
+#
+#  id                :integer(11)     not null, primary key
+#  created_at        :datetime        
+#  updated_at        :datetime        
+#  vin               :string(17)      
+#  trim_id           :string(255)     
+#  exterior_color_id :string(255)     
+#  interior_color_id :string(255)     
+#  certified         :boolean(1)      
+#  odometer          :decimal(10, 1)  
+#  frame_damage      :boolean(1)      
+#  prior_paint       :boolean(1)      
+#  dealership_id     :integer(11)     
+#  title             :boolean(1)      
+#  title_state       :string(2)       
+#  stock_number      :string(100)     
+#  location          :string(100)     
+#  actual_cash_value :decimal(10, 2)  
+#  cost              :decimal(10, 2)  
+#  comments          :text            
+#  draft             :boolean(1)      default(TRUE)
+#
+
+jetta_vehicle_1:
+  id: 18001
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50
+  frame_damage: false
+  prior_paint: false
+  dealership_id: 23001
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: A real sleeper.
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80FOT128C0
+  vin: 1FDNW21508E123456
+  interior_color_id: USB80FOT128C001LA
+  exterior_color_id: USB80FOT128C001DX
+
+jetta_vehicle_2:
+  id: 18002
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 60
+  frame_damage: true
+  prior_paint: false
+  dealership_id: 23001
+  title: false
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: A real sleeper.
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80FOT134B0
+  vin: 1FDSX31508E123456
+  interior_color_id: USB80FOT134B0012C
+  exterior_color_id: USB80FOT134B001CX
+
+jetta_vehicle_3:
+  id: 18003
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: false
+  odometer: 500000
+  frame_damage: false
+  prior_paint: true
+  dealership_id: 23002
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: A real sleeper.
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80FOT136C0
+  vin: 1FDSX31508E123456
+  interior_color_id: USB80FOT136C001MA
+  exterior_color_id: USB80FOT136C001DX
+
+jetta_vehicle_4:
+  id: 18004
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50
+  frame_damage: false
+  prior_paint: true
+  dealership_id: 23001
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: A real sleeper.
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80CHT305A0
+  vin: 1GCHC23608E123456
+  interior_color_id: USB80CHT305A00119D
+  exterior_color_id: USB80CHT305A00312U
+
+jetta_vehicle_no_dealership:
+  id: 18005
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50
+  frame_damage: false
+  prior_paint: true
+#  dealership_id: nil
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: I love this car.
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: true
+  trim_id: USB80CHT276A0
+  vin: 1GCEK14008E123456
+  interior_color_id: USB80CHT276A00119D
+  exterior_color_id: USB80CHT276A00312U
+
+jetta_vehicle_from_2000:
+  id: 18006
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50
+  frame_damage: false
+  prior_paint: true
+  dealership_id: 23001
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: Your place or mine?
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80CHS201A0
+  vin: 3GNDA13D08S123456
+  interior_color_id: USB80CHS201A00214B
+  exterior_color_id: USB80CHS201A00115U
+
+taureg_vehicle:
+  id: 18007
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50
+  frame_damage: false
+  prior_paint: true
+  dealership_id: 23001
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: This Taureg is out of sight!
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80CHS112B0
+  vin: 1GNEK13008J123456
+  interior_color_id: USB80CHS112B00119D
+  exterior_color_id: USB80CHS112B00116U
+
+draft_vehicle:
+  id: 18008
+  created_at: 2007-05-24 00:00:00 -07:00
+  updated_at: 2007-06-25 00:00:00 -07:00
+  certified: true
+  odometer: 60
+  frame_damage: false
+  prior_paint: false
+  dealership_id: 23001
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: Cracks in windows make this drafty.
+  created_at: 2007-08-12 00:00:00 -07:00
+  updated_at: 2007-08-13 00:00:00 -07:00
+  draft: true
+  trim_id: USB80CHS082D0
+  vin: 1GNDT13M082123456
+  interior_color_id: USB80CHS082D001282
+  exterior_color_id: USB80CHS082D00112U
+
+pivotal_vehicle_1:
+  id: 18009
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50
+  frame_damage: false
+  prior_paint: true
+  dealership_id: 23003
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 12
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: This car will change your life.
+  draft: false
+  trim_id: USB80CHH546A0
+  vin: 1GBJK396086123456
+  interior_color_id: USB80CHH546A001193
+  exterior_color_id: USB80CHH546A00312U
+
+pivotal_vehicle_2:
+  id: 18010
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 500
+  frame_damage: false
+  prior_paint: false
+  dealership_id: 23003
+  title: true
+  title_state: CA
+  stock_number: 1235
+  location: Lot 7, Space 12
+  actual_cash_value: 11.99
+  cost: 12350.10
+  comments: Kneel before Zod! (And this car.)
+  draft: false
+  trim_id: USB80CHH542B0
+  vin: 1GBJC346086123456
+  interior_color_id: USB80CHH542B00188V
+  exterior_color_id: USB80CHH542B00312U
+
+pivotal_vehicle_3:
+  id: 18011
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 50065
+  frame_damage: false
+  prior_paint: true
+  dealership_id: 23003
+  title: true
+  title_state: CA
+  stock_number: 1236
+  location: Lot 7, Space 12
+  actual_cash_value: 12.99
+  cost: 43567.10
+  comments: Beowulf rocks.
+  draft: false
+  trim_id: USB80CHC222A0
+  vin: 1G1ZS57F08F123456
+  interior_color_id: USB80CHC222A00233C
+  exterior_color_id: USB80CHC222A00215U
+
+taureg_vehicle_2:
+  id: 18012
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  certified: true
+  odometer: 444
+  frame_damage: false
+  prior_paint: false
+  dealership_id: 23001
+  title: true
+  title_state: CA
+  stock_number: 1234
+  location: Lot 7, Space 97
+  actual_cash_value: 1.99
+  cost: 0.10
+  comments: A real snooze.
+  created_at: 2006-08-24 00:00:00 -07:00
+  updated_at: 2006-08-25 00:00:00 -07:00
+  draft: false
+  trim_id: USB80CHC131B0
+  vin: 2G1WT55K089123456
+  interior_color_id: USB80CHC131B003192
+  exterior_color_id: USB80CHC131B00127U

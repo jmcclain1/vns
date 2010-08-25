@@ -1,0 +1,36 @@
+
+content_for(:subnav) do
+  form_tag(new_vehicle_path(:step => 'vin').to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1 "Add a vehicle to inventory"
+end
+
+form_for(:vehicle, @vehicle, :url => vehicles_path.to_s, :html => {:id => 'inventory_form', :method => :post}) do |form|
+  text render(:partial => '/vehicles/wizard/wizard_bar', :locals => { :current_step => 1 })
+
+  task_box(self) do
+    td.helper do
+      h3 do
+        span :class => 'step' do
+          text "Step 1: "
+        end
+        text "Enter VIN"
+      end
+      p "First we need the vehicle VIN. The VNS system will retrieve the vehicle Year, Make, Model and Trim data."
+    end
+    td.content do
+      render_error_messages
+
+      h3 "Enter VIN number (e.g. 1FDXF47R18E234567)"
+      text form.text_field(:vin)
+    end
+  end
+
+  form_btn 'Proceed to Select Vehicle', :id => 'proceed_button', :class => 'task_button', :onclick => "$('inventory_form').submit();"
+
+end
+

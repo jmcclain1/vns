@@ -1,0 +1,48 @@
+content_for(:subnav) do
+  div :class => 'tab_active' do
+    a 'Inbox', :href => prospects_path, :id => 'prospect_inbox'
+  end
+  div :class => 'tab' do
+    a 'Find Vehicles', {:href => new_prospect_path, :id => 'find_vehicle_tab'}
+  end
+  div :class => 'tab' do
+    a 'Shopping List', {:href => shopping_items_path}
+  end
+  text tablist_paint
+end
+
+div :id => 'scrollable_content' do
+
+  h1 do
+    text "All Opportunities: "
+    link_to @dealership.prospects.find_all_by_lost_interest(false).size.to_s, prospects_path
+  end
+
+  p(:id => 'prospects_grid_bookmark')
+
+  div :id => 'prospects_listing' do
+    table(:id => 'prospects_grid') do
+      tr do
+        th(:class => 'year')     { "Year" }
+        th(:class => 'make')     { "Make/Model" }
+        th(:class => 'mileage')  { "Mileage" }
+        th(:class => 'distance') { "Distance" }
+        th(:class => 'price')    { "Asking Price" }
+        th(:class => 'activity') { "Last Activity" }
+        th(:class => 'status')   { "Status" }
+      end
+    end
+  end
+end
+
+javascript_tag """
+function init_livegrid() {
+  prospectsTable = new Rico.LiveGrid(
+    'prospects_grid',
+    new Rico.Buffer.AjaxSQL('#{prospects_path}', {'isEncoded': false}),
+    {'hdrIconsFirst': false}
+  );
+}
+Rico.loadModule('LiveGridAjax');
+Rico.include('prospects_grid.css');
+Rico.onLoad(init_livegrid)"""

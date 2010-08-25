@@ -1,0 +1,1 @@
+require 'appable_plugins'

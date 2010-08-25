@@ -1,0 +1,447 @@
+/* Vehicle Summary box */
+
+#vehicle_summary {
+  background: #F4F4F4;
+  padding: .5em;
+}
+
+#vehicle_summary img {
+  float: left;
+  border: 4px solid #FFFFFF;
+  margin-right: -60px;
+}
+
+#vehicle_summary #information {
+  padding: 0 2em 0 70px;
+}
+
+#information {
+	margin: 0 0 0 .8em;
+}
+
+#basic_information {
+  margin: 0;
+}
+
+#basic_information h1 {
+  margin: 0;
+  padding: 0;
+}
+
+#basic_information #listing_id {
+  float: right;
+  font-size: .8em;
+}
+
+#listing_box {
+  background: #FFFFFF;
+  padding: .1em .5em;
+  border: 1px solid #959595;
+  float: left;
+}
+
+#listing_box .field {
+  font-size: .9em;
+  padding: 0 2em 0 0;
+  float: left;
+}
+
+#listing_box span.canceled {
+	color: #b12623;
+}
+
+#vehicle_summary .value {
+  font-weight: bold;
+}
+
+/* Details, Messages and Offers */
+
+#listing_details_content #details .content {
+  padding: 1em;
+}
+
+#listing_details_content .field_value {
+  font-weight: bold;
+  color: #000000;
+}
+
+#details_and_messages {
+  width: 100%;
+  padding: 10px;
+}
+
+#messages_offers {
+  background:   #fff;
+  padding: .5em;
+}
+
+#potential_buyers {
+  width:        30em;
+	background:		#eee;
+	vertical-align: top;
+}
+
+#potential_buyers .buyer_info {
+  border:       1px solid #eee;
+  border-left:  none;
+  border-right: none;
+  height: 1.4em;
+	cursor: pointer;
+}
+
+#potential_buyers .active_trigger {
+  border:       1px solid #8B8B8B;
+  border-left:  none;
+  border-right: none;
+  background:   #fff;
+}
+
+#potential_buyers .buyer_offer span.high_offer {
+	font-weight: bold;
+}
+
+#messages_and_offers_content #potential_buyers h3 {
+  background: #D3D3D3 url(/images/tables/table_grad_grey.png) top left repeat-x;
+  padding: .4em;
+  margin: 0;
+  border-right: 1px solid #8B8B8B;
+}
+
+#potential_buyers th {
+  padding: .6em 0 .2em .3em;
+  background: #D3D3D3 url(/images/tables/table_grad_grey.png) top left repeat-x;
+  border-style: solid;
+  border-color: #8B8B8B;
+  border-width: 1px 1px 1px 0;
+  font-weight: normal;
+  text-align: left;
+}
+#potential_buyers .buyer_name {
+  display: block;
+  float: left;
+  width: 48%;
+  padding: .2em 0 .2em .3em;
+}
+#potential_buyers .unread {
+	font-weight: bold;
+}
+#potential_buyers .buyer_status {
+  display: block;
+  float: left;
+  width: 24%;
+  padding: .2em 0 .2em .3em;
+}
+#potential_buyers .buyer_offer {
+  display: block;
+  float: left;
+  width: 24%;
+  padding: .2em 0 .2em .3em;
+}
+
+#details_and_messages .message_content {
+  border-top: 1px solid grey;
+  border-left: 2px solid grey;
+  border-bottom: 1px solid grey;
+  border-right: 1px solid grey;
+  float: left;
+}
+
+#details_and_messages .messages {
+  border-top: 1px solid grey;
+  border-left: 1px solid grey;
+  border-bottom: 1px solid grey;
+  float: left;
+}
+
+
+#details_and_messages .messages {
+  width: 40%;
+  background-color: #ffdddd;
+}
+
+#details_and_messages .messages h3 {
+  padding: 10px;
+  margin: 0;
+}
+
+#details_and_messages .messages .messages_table {
+  height: 20em;
+  overflow: hidden;
+}
+
+#details_and_messages .messages table {
+  width: 100%;
+}
+
+#details_and_messages .messages table th {
+  text-align: left;
+  border-left: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+#details_and_messages .messages table tr td {
+  padding: 3px 0;
+}
+
+#details_and_messages .messages table th, #details_and_messages .messages table td.subsequent_column {
+  padding-left: 10px;
+}
+
+#details_and_messages .messages table .message_read {
+  padding: 0 5px;
+}
+
+#details_and_messages .messages table tr.selected td {
+  background-color: white;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+}
+
+#details_and_messages .message_content {
+  height: 23.2em;
+  width: 50%;
+  padding: 10px;
+  background-color: white;
+  margin-left: -3px;
+}
+
+#messages_and_offers_content {
+  padding:        0;
+  background:     #fff;
+  border:         1px solid #8B8B8B;
+}
+
+#messages_and_offers_content .buyer_details .name_dealership {
+  font-size: .9em;
+}
+
+#messages_and_offers_content .buyer_details .name_dealership .status {
+  font-weight: bold;
+}
+
+#messages_and_offers_content input {
+  margin-right:   0.2em;
+}
+
+#messages_and_offers_content .section {
+  padding:        0.2em;
+  margin-bottom:  0.4em;
+}
+
+#messages_and_offers_content .windowshade_form {
+  padding:        0;
+  margin-bottom:  0.4em;
+}
+
+#messages_and_offers_content .windowshade_form form {
+  margin:         0;
+}
+
+#messages_and_offers_content .windowshade_form fieldset.buttons,
+#messages_and_offers_content .windowshade_form fieldset.fields {
+  padding:        1em;
+  margin:         0;
+  width:          auto;
+}
+
+#messages_and_offers_content .windowshade_form fieldset.fields {
+  border:         1px solid #e4e4e4;
+}
+
+#messages_and_offers_content .windowshade_form fieldset.buttons {
+  text-align:     right;
+	border: 0;
+}
+
+#messages_and_offers_content .windowshade_form label {
+  font-weight:    bold;
+  width:          4em;
+  display:        block;
+  float:          left;
+}
+
+#messages_and_offers_content .windowshade_form textarea {
+  display:        block;
+  clear:          both;
+}
+
+#spot_market_seller_info {
+  background:     #e5e5e5;
+  border:         1px solid #c9c9c9;
+}
+
+#spot_market_active_offer {
+  background:     #ff9;
+  border:         1px solid #f2f32e;
+}
+
+#messages_and_offers_content h3, h4 {
+	padding: .2em 0 0 .2em;
+	width: 100%;
+}
+
+#messages_and_offers_content #potential_buyers h3 {
+	width: auto;
+}
+
+/* Active Offer Box */
+
+#messages_and_offers_content .buyer_active_offer {
+  border: 1px solid #CC9900;
+  background: #FEFEE2;
+  margin: .2em 0 0 0;
+  padding: .4em;
+	min-height: 3em;
+	height: auto !important;
+	height: 3em;
+}
+
+#messages_and_offers_content .buyer_active_offer h4 {
+  color: #C99702;
+  display: inline;
+  margin: 0;
+}
+
+#messages_and_offers_content .buyer_active_offer .offer {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+#messages_and_offers_content .buyer_active_offer input.comment {
+  width: 65%;
+}
+
+#messages_and_offers_content .buyer_active_offer #submit_btn {
+  float: right;
+}
+
+#messages_and_offers_content .buyer_active_offer .windowshade_form_trigger {
+  margin: .5em 3em 0 0;
+  float: right;
+}
+
+#messages_and_offers_content .buyer_active_offer .agree_box {
+  margin: 2em 0;
+}
+
+.fields .agree_box {
+	margin: 1em 0;
+}
+
+#messages_and_offers_content .buyer_active_offer .button {
+  float: right;
+}
+
+#messages_and_offers_content .buyer_active_offer textarea {
+  margin: 0 0 .2em 0;
+}
+
+#messages_and_offers_content .buyer_active_offer .flash_notice {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#messages_and_offers_content .buyer_active_offer .flash_notice ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#messages_and_offers_content .buyer_active_offer .flash_notice ul li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Send Message Box */
+
+#messages_and_offers_content #spot_market_send_message_box {
+  /*border: 1px solid #9C9C9C;*/
+  margin: .5em 0 0 0;
+}
+
+#messages_and_offers_content #spot_market_send_message_box textarea.message_area {
+  width: 99.1%;
+  height: 8em;
+  padding: .2em;
+  border: none;
+}
+
+#messages_and_offers_content #spot_market_send_message_box #message_submit {
+  float: right;
+  margin: 1em 0 0 0;
+}
+
+#messages_and_offers_content #spot_market_send_message_box h4 {
+  font-weight: normal;
+  background: #DAE7F7;
+  padding: .2em;
+  margin: 0;
+}
+
+#spot_market_send_offer h4 {
+  background:     #ff9;
+}
+
+#spot_market_send_message h4 {
+  background:     #80aaff;
+}
+
+.scrollable_list {
+  padding:        0;
+  border:         1px solid #e4e4e4;
+/*  height:         20em;*/
+	margin: 0;
+  overflow:       auto;
+}
+
+.scrollable_list li {
+  margin:           0;
+  padding:          0;
+  list-style-type:  none;
+}
+
+.scrollable_list li div.message_header {
+  padding:        0.2em;
+	margin-bottom: 0.2em;
+}
+
+.scrollable_list li div.message_body {
+  padding:        0 1em 0.6em;
+}
+
+.scrollable_list li.cancel_event div.message_header,
+.scrollable_list li.lost_event   div.message_header,
+.scrollable_list li.reply_event  div.message_header,
+.scrollable_list li.new_listing_event    div.message_header {
+  background:     #bad7f1;
+}
+
+.scrollable_list li.won_event		div.message_header {
+	background:			#b3e38f;
+	font-weight: 		bold;
+}
+
+.scrollable_list li.ask_event		       div.message_header {
+	background:			#f1f4fd;
+}
+
+.scrollable_list li.offer_event  div.message_header {
+  background:     #ffd;
+}
+
+.active_buttons {
+	clear: both;
+}
+
+.active_offer {
+  float: left;
+}
+
+.active_offer .offer {
+  clear: left;
+}
+
+.action_buttons {
+	clear: left; 
+	margin-top: .5em;
+}

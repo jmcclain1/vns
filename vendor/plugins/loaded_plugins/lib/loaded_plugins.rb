@@ -1,0 +1,5 @@
+require 'loaded_plugins/plugin'
+require 'loaded_plugins/plugin_list'
+require 'loaded_plugins/loaded_plugins'
+require 'loaded_plugins/extensions/rails'
+require 'loaded_plugins/extensions/initializer'

@@ -1,0 +1,45 @@
+content_for(:subnav) do
+  form_tag(new_vehicle_path().to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+
+  div :class => 'tab' do
+    a 'Dealership Inventory', {:href => vehicles_path}
+  end
+  div :class => 'tab' do
+    a 'Drafts', {:href => '#'}
+  end
+  div :class => 'tab_active' do
+    a "#{vehicle.display_name}, #{vehicle.exterior_color.name}/#{vehicle.interior_color.name}", {:href => '#'}
+    img :src => '/images/tabs/tab_x.png', :class => 'x'
+  end
+end
+
+h1 "Editing vehicle"
+
+error_messages_for :vehicle
+
+form_for(:vehicle, @vehicle, :url => vehicle_path(@vehicle).to_s, :html => { :id => 'vehicle_edit_form', :method => :put }) do |f|
+  table do
+    VehicleField::ALL.each do |field|
+      tr do
+        th do
+          b field.title
+        end
+        td do
+          text field.editor_html(f)
+        end
+      end
+    end
+    tr do
+      td
+      td do
+        form_btn "Update", :onclick => "$('vehicle_edit_form').submit();"
+      end
+    end  
+  end
+end
+
+link_to 'Show', vehicle_path(@vehicle)
+bar
+link_to 'Back', vehicles_path

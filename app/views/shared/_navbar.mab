@@ -1,0 +1,37 @@
+content_for(:subnav) { '' }
+
+div.navigation! do
+  div.primary do
+    if logged_in?
+      ul.primary_inboxes! :class => 'h_list' do
+        tab "Buying", nil
+        tab "Selling", nil
+        tab "Transacting", transactions_path
+        tab "Appraising",  '#'
+      end
+      ul.primary_additional! :class => 'h_list' do
+        tab "Inventory", vehicles_path
+        tab "Manage", url_for(:controller => 'home', :action => :index), {}, :id => 'manage_tab_link'
+      end
+    end
+  end
+
+  if logged_in?
+    div.secondary do
+      div.border do
+        self << content_for_subnav unless content_for_subnav.blank?
+      end
+    end
+
+    div.buying_popup!(:style => "display: none;") do
+      render :partial => '/notifications/popups/buying',
+             :locals => {:prospects => logged_in_user.prospects_with_alerted_notifications }
+    end
+
+    div.selling_popup!(:style => "display: none;") do
+      render :partial => '/notifications/popups/selling',
+             :locals => {:listings => logged_in_user.listings_with_alerted_notifications }
+    end
+  end
+end
+clear_floats

@@ -1,0 +1,92 @@
+= plugin_migrations
+
+plugin_migrations adds the ability for all plugins to have the same migration
+capabilities that your Rails application has.
+
+== Resources
+
+Wiki
+
+* http://wiki.pluginaweek.org/Plugin_migrations
+
+Announcement
+
+* http://www.pluginaweek.org/2006/11/05/3-plugin_migrations-where-have-all-the-migrations-gone/
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/active_record/migrations/plugin_migrations
+
+Development
+
+* http://dev.pluginaweek.org/browser/trunk/plugins/active_record/migrations/plugin_migrations
+
+== How it works
+
+In addition to the normal schema_info table that Rails created in your database
+to keep track of the current migration version, this plugin adds a new table
+called plugin_schema_info:
+
+  plugin_schema_info
+  ------------------
+  plugin_name (string)
+  version (integer)
+
+Plugin migrations expects the migrations to be located in a similar directory
+structure as that of your Rails application. That is, it would look in
+/db/migrations in your plugin's folder.
+
+== Usage
+
+The plugin can be used via the new rake tasks that have been added.  The plugins
+which are migrated are based on what is stored in $LOADED_PLUGINS.  For more
+information on the variable, see the loaded_plugins plugin at
+http://wiki.pluginaweek.org/Loaded_plugins.
+
+=== db:migrate:plugins
+
+Running db:migrate:plugins will run the migrations for every plugin that is
+loaded.  You can also specify exactly which plugin you want to migrate.
+
+Examples:
+
+Assuming the following directory structure:
+
+  vendor/
+  vendor/plugins/
+  vendor/plugins/acts_as_bunny
+  vendor/plugins/acts_as_as_chicken
+
+  rake db:migrate:plugins # Migrates both acts_as_bunny and acts_as_chicken
+  rake db:migrate:plugins PLUGIN=acts_as_bunny
+  rake db:migrate:plugins PLUGIN=acts_as_bunny VERSION=2
+
+=== db:fixtures:load:plugins
+
+Running db:fixtures:load:plugins will load the fixtures for every plugin that is
+loaded.  You can also specify exactly which plugin you want to load fixtures for.
+
+Examples:
+
+Assuming the following directory structure:
+
+  vendor/
+  vendor/plugins/
+  vendor/plugins/acts_as_bunny
+  vendor/plugins/acts_as_as_chicken
+
+  rake db:fixtures:load:plugins # Loads fixtures for both acts_as_bunny and acts_as_chicken
+  rake db:fixtures:load:plugins PLUGIN=acts_as_bunny
+  rake db:fixtures:load:plugins PLUGIN=acts_as_bunny FIXTURES=bunnies
+  rake db:fixtures:load:plugins PLUGIN=acts_as_bunny FIXTURES=bunnies,rabbits
+
+== Dependencies
+
+This plugin dependencies on the presence of the following plugins:
+* loaded_plugins - http://wiki.pluginaweek.org/Loaded_plugins
+* plugin_dependencies - http://wiki.pluginaweek.org/Plugin_dependencies (only if being installed as a plugin)
+
+== Credits
+
+Thanks to James Adam and his Engines plugin for providing an implementation
+upon which this plugin is based (http://www.rails-engines.org/).

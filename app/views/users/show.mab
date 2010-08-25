@@ -1,0 +1,61 @@
+manage_subnavbar :active_tab => 'Preferences'
+
+render_error_messages
+
+div :id => 'scrollable_content' do
+  div :id => 'sms_options' do
+    h3 'SMS Options'
+    p do
+      b 'SMS Address: '
+      text @user.sms_address
+    end
+
+    p do
+	  check_box('user', :sms_wants_any_sms, :value => @user.sms_wants_any_sms, :disabled => true)
+	  text "Enable SMS messages"
+	end
+
+    div(:style => "margin: 10px") do
+
+    p do
+      check_box('user', :sms_wants_new_offer, :value => @user.sms_wants_new_offer, :disabled => true)
+      text "Receive SMS when you receive a new offer"
+    end
+
+#    Do not expose this option for the moment, per Jeff
+#    p do
+#      check_box('user', :sms_wants_listing_expired, :value => @user.sms_wants_listing_expired, :disabled => true)
+#      text "Receive SMS when a listing expires?"
+#    end
+
+      p do
+        check_box('user', :sms_wants_inquiry, :value => @user.sms_wants_inquiry, :disabled => true)
+        text "Receive SMS when you receive an inquiry about one of your listings"
+      end
+
+      p do
+        check_box('user', :sms_wants_reply, :value => @user.sms_wants_reply, :disabled => true)
+        text "Receive SMS when you receive a reply to one of your inquiries about a listing"
+      end
+
+      p do
+        check_box('user', :sms_wants_auction_won, :value => @user.sms_wants_auction_won, :disabled => true)
+        text "Receive SMS when you win an auction"
+      end
+
+      p do
+        check_box('user', :sms_wants_auction_lost, :value => @user.sms_wants_auction_lost, :disabled => true)
+        text "Receive SMS when you lose an auction"
+      end
+
+      p do
+        check_box('user', :sms_wants_auction_cancel, :value => @user.sms_wants_auction_cancel, :disabled => true)
+        text "Receive SMS when a listing you are interested in is cancelled"
+      end
+      
+    end
+    form_tag(edit_user_path(@user).to_s, {:id => "editing_preferences_form", :method => :get})
+      form_btn "Edit Preferences", :onclick => "$('editing_preferences_form').submit();"
+    end_form_tag
+  end
+end

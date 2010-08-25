@@ -1,0 +1,6 @@
+require 'loaded_plugins'
+require 'plugin_routing/extensions/plugin'
+require 'plugin_routing/extensions/action_controller'
+require 'plugin_routing/extensions/action_mailer'
+require 'plugin_routing/extensions/action_view'
+require 'plugin_routing/extensions/action_view'

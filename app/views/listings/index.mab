@@ -1,0 +1,41 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+
+  div :class => 'tab_active' do
+    a 'Inbox', {:href => listings_path}
+  end
+  text tablist_paint
+end
+
+div :id => 'scrollable_content' do
+  
+  p(:id => 'listings_grid_bookmark')
+
+  div :id => 'listings_listing' do
+    table(:id => 'listings_grid') do
+      tr do
+        th(:class => 'year')  { "Year" }
+        th(:class => 'make') { "Make/Model" }
+        th(:class => 'mileage')  { "Mileage" }
+        th(:class => 'price')  { "Asking Price" }
+        th(:class => 'activity') { "Last Activity" }
+        th(:class => 'status') { "Status" }
+      end
+    end
+  end
+
+end
+
+javascript_tag """
+function init_livegrid() {
+  listingsTable = new Rico.LiveGrid(
+    'listings_grid',
+    new Rico.Buffer.AjaxSQL('#{listings_path}', {'isEncoded': false}),
+    {'hdrIconsFirst': false}
+  );
+}
+Rico.loadModule('LiveGridAjax');
+Rico.include('listings_grid.css');
+Rico.onLoad(init_livegrid)"""

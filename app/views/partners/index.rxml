@@ -1,0 +1,38 @@
+def cell(xml, class_name)
+  xml.td do
+    xml.div(:class => class_name) do |d|
+      d << yield
+    end
+  end
+end
+
+def user_and_dealership(user)
+  markaby do
+    p user.full_name
+    p user.dealership.name
+  end
+end
+
+def distance_and_address(user)
+  markaby do
+    p user.location.distance_from(logged_in_user.location).round.to_s + " Miles"
+    p user.location.display_name
+  end
+end
+
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.tag!("ajax-response") do
+  xml.response(:type => "object", :id => "partners_grid") do
+    xml.rowcount @total_rows if @want_row_count
+    xml.rows :update_ui => true, :offset => @offset do
+      for partner in @partners
+        xml.tr do
+          cell(xml, 'name')               { user_and_dealership(partner) }
+          cell(xml, 'vns_sn')             { partner.unique_name }
+          cell(xml, 'distance')           { distance_and_address(partner) }
+          cell(xml, 'status')             { partner.status.capitalize }
+        end
+      end
+    end
+  end
+end

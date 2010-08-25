@@ -1,0 +1,74 @@
+def year_column(vehicle)
+  markaby do
+    span.data vehicle.year.to_s
+  end
+end
+
+def make_model_column(vehicle)
+  markaby do
+    div.thumb do
+      a :href => vehicle_path(vehicle) do
+        img :src => "#{vehicle.primary_photo.versions[:small].url}"
+      end
+    end
+    link_to "#{vehicle.make_name} #{vehicle.model_name}", vehicle_path(vehicle), :class => 'makemodel'
+    span.certified ' Certified' if vehicle.certified?
+    br
+    div.details do
+      span.data {"#{vehicle.odometer} Miles"}
+      text ", "
+      span.data  {"#{vehicle.exterior_color.name}/#{vehicle.interior_color.name}"}
+    end
+    div.number_details do
+      text "Vin# "
+      span.vin {"#{vehicle.vin}"}
+      text "Stock# "
+      span.data "#{vehicle.stock_number}"
+    end
+  end
+end
+
+def days_column(vehicle)
+  markaby do
+    span.data "#{vehicle.days_in_inventory}"
+    text " days in inventory"
+  end
+end
+
+def status_column(vehicle)
+  markaby do
+    if vehicle.listing && !vehicle.listing.draft?
+      text "Listed by "
+      span.data "#{vehicle.listing.lister.full_name}"
+      p { link_to("View Listing", listing_path(vehicle.listing)) }
+    else
+      span do
+        em { "Unlisted" }
+      end
+      started = vehicle.listing && vehicle.listing.draft?
+      p "Listing has been started" if started
+      create_listing_button(vehicle) if vehicle.listable?
+    end
+    if !vehicle.title
+      p(:style => "color:red") { "No Title" }
+      p { "Title required to list vehicle" }
+    end
+  end
+end
+
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.tag!("ajax-response") do
+  xml.response(:type => "object", :id => "vehicle_grid") do
+    xml.rowcount @total_rows if @want_row_count
+    xml.rows :update_ui => true, :offset => @offset do
+      for vehicle in @vehicles
+        xml.tr do
+          xml.td {|d| d << year_column(vehicle) }
+          xml.td {|d| d << make_model_column(vehicle) }
+          xml.td {|d| d << days_column(vehicle) }
+          xml.td {|d| d << status_column(vehicle) }
+        end
+      end
+    end
+  end
+end

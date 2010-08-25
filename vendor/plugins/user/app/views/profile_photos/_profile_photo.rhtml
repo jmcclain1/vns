@@ -1,0 +1,11 @@
+  <div id="profile_photo_<%= photo.id %>">
+  <%= image_tag photo.versions[:original].url, :size => '50x50' %>
+  <% if logged_in_user == user %>
+      <%= link_to_remote 'Delete',
+                :url => profile_photo_url(user, photo), :method => :delete %>
+      <% unless user.profile.primary_photo == photo %>
+        <%= link_to_remote 'Set as primary photo',
+                :url => profile_primary_photo_url(:user_id => user, :id => photo), :method => :put %>
+      <% end %>
+  <% end %>
+</div>

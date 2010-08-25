@@ -1,0 +1,5 @@
+<% @page_title = 'Edit Profile' %>
+<% form_tag user_path(@user.to_s), :method => 'put' do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Update", :id=>'update_button' %>
+<% end %>

@@ -1,0 +1,47 @@
+tr.ricoLG_hdg .ricoLG_cell, tr.ricoLG_hdg th, tr.ricoLG_hdg td {
+  background: #D3D3D3 url(/images/tables/table_grad_grey.png) top left repeat-x !important;
+}
+
+.ricoLG_table th, .ricoLG_table td {
+border-left: 0;
+}
+
+.ricoLG_table th {
+  text-align: left;
+  padding: .3em 0 0 .2em;
+}
+
+/* Common data styles */
+
+td span.data {
+  color: #000000;
+  font-weight: bold;
+}
+
+td span.label {  
+}
+
+.ricoLG_outerDiv .ricoLG_table {
+	border: none;
+}
+
+.ricoLG_table .thumb {
+float: left;
+margin-right: 10px;
+height: 60px;
+}
+
+td a.makemodel {
+  font-weight: bold;
+}
+
+td div.details {
+  font-size: .85em;
+  height: 3.4em;
+}
+
+/* temp - AH */
+span.makemodel {
+  color: #233E83;
+  font-weight: bold;
+}

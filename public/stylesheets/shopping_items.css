@@ -1,0 +1,88 @@
+/* Shopping List Table */
+#shopping_list tr.button_row td, th {
+border-bottom: 1px solid #ccc;
+}
+#shopping_list .priority {
+background-color: #F1F4FD;
+}
+#shopping_list {
+background-color: white;
+border: 1px solid gray;
+width: 100%;
+}
+#shopping_list td, th {
+padding: .25em .75em .25em .75em;
+height: 2em;
+text-align: left;
+}
+#shopping_list th {
+  background: url('/images/tables/table_grad_grey.png') repeat-x;
+	font-size: .85em;
+	padding: 0 .75em 0 .75em;
+}
+#shopping_list .button_row input {
+  margin: 0 1em 0 0;
+  float: left;
+}
+#shopping_list .value {
+  font-weight: bold;
+  color: #000000;
+}
+
+/* Shopping List Form */
+#shopping_list_form_box h3 {
+background: #CCDEF2;
+margin: 0;
+width: 53em;
+font-size: 1em;
+padding: .2em .5em;
+border: 1px solid #CCCCCC;
+border-bottom: none;
+}
+#shopping_list_form_box fieldset {
+border: 1px solid #CCCCCC;
+line-height: 2em;
+width: 53em;
+padding: .5em;
+margin: 0;
+border-top: none;
+}
+
+#shopping_list_form_box div.field {
+float: left;
+padding: 0 .4em .5em .4em;
+}
+
+#shopping_list_form span.label {
+  display: block;
+  font-size: .9em;
+  font-weight: bold;
+}
+
+#shopping_list_form span.label_check {
+  font-size: .9em;
+  font-weight: bold;
+}
+
+#shopping_list_form #item_must_be_certified,
+#item_priority {
+  margin: .3em .4em 0 0;
+}
+
+#shopping_list_form div#model {
+  width: 15em;
+}
+
+#shopping_list_form_box #any_make {
+  border: 1px solid #666666;
+  background: #E9E9E9;
+  padding: .1em;
+  width: 98%;
+  display: block;
+  color: #666666;
+}
+
+#shopping_list_form_box #mark_submit {
+  float: right;
+}
+

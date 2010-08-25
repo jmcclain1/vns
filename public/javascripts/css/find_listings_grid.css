@@ -1,0 +1,35 @@
+@import 'vns_common.css';
+
+/*--- Vehicle Listing Grid ---*/
+
+#find_listings_grid_innerDiv {
+}
+
+#find_listings_grid_outerDiv {
+	border: 1px solid #8B8B8B;
+}
+
+td .ricoLG_col div.ricoLG_cell {
+height:8em;
+}
+
+.ricoLG_table .thumb {
+height: 7em;
+}
+
+#find_listings_grid { width: 98%; }
+th.year { width: 7%; }
+th.make { width: 45%; }
+th.mileage { width: 8%; }
+th.distance { width: 9%; }
+th.price { width: 9%; }
+th.status { width: 20%; }
+
+#find_listings_grid_scrollDiv {
+  overflow: auto;
+}
+
+td span.distance_from {
+  font-size: .85em;
+}
+

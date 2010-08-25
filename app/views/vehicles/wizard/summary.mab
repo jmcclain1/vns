@@ -1,0 +1,37 @@
+content_for(:subnav) do
+  form_tag(new_vehicle_path().to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1.task "Add a vehicle to inventory"
+end
+
+form_for(:vehicle,
+         @vehicle,
+         :url => vehicle_path(:id => @vehicle, 'wizard[step]' => 'summary', :escape => false).to_s,
+         :html => {:id => 'inventory_form',:method => :put}) do |form|
+  text form.hidden_field(:id)
+
+  text render(:partial => '/vehicles/wizard/wizard_bar', :locals => { :current_step => 5 })
+
+  task_box(self) do
+    td.helper do
+      h3 do
+        span :class => 'step' do
+          text "Step 5: "
+        end
+        text "Summary"
+      end
+      p "Review the vehicle summary below to verify details. Then click Add This Vehicle To Inventory and you're finished!"
+    end
+    td.content do
+      render_error_messages
+
+      text render(:partial => 'vehicles/details', :locals => { :vehicle => @vehicle, :read_only => true, :seller_view => true })
+    end
+  end
+
+  form_btn 'Add this Vehicle to Inventory', :id => 'proceed_button', :class => 'task_button', :onclick => "$('inventory_form').submit();"
+end

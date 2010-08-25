@@ -1,0 +1,43 @@
+content_for(:subnav) do
+  form_tag(new_vehicle_path().to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+
+  div :class => 'tab_active' do
+    a 'Dealership Inventory', {:href => '#'}
+  end
+  div :class => 'tab' do
+    a 'Drafts', {:href => '#'}
+  end
+  text tablist_paint
+end
+
+div :id => 'scrollable_content' do
+
+  h1 "Listing vehicles"
+
+  p(:id => 'vehicles_grid_bookmark')
+
+  div :id => 'vehicles_listing' do
+    table(:id => 'vehicles_grid') do
+      tr do
+        th(:class => 'year')  { "Year" }
+        th(:class => 'make') { "Make/Model" }
+        th(:class => 'days') { "Days in Inventory" }
+        th(:class => 'status') { "Status" }
+      end
+    end
+  end
+end
+
+javascript_tag """
+function init_livegrid() {
+  vehiclesTable = new Rico.LiveGrid(
+    'vehicles_grid',
+    new Rico.Buffer.AjaxSQL('#{vehicles_path}', {'isEncoded': false}),
+    {'hdrIconsFirst': false}
+  );
+}
+Rico.loadModule('LiveGridAjax');
+Rico.include('vehicles_grid.css');
+Rico.onLoad(init_livegrid)"""

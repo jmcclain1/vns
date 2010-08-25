@@ -1,0 +1,70 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: locations
+#
+#  id          :integer(11)     not null, primary key
+#  address     :string(255)     
+#  city        :string(255)     
+#  region      :string(255)     
+#  postal_code :string(255)     
+#  country     :string(255)     
+#  latitude    :float           
+#  longitude   :float           
+#  created_at  :datetime        
+#  located_at  :datetime        
+#  located_by  :string(255)     
+#  accuracy    :string(255)     
+#
+
+big_als:
+  id: 1
+  address: 2575 Auto Mall Pkwy
+  city: Fairfield
+  region: CA
+  postal_code: 94533
+  country: US
+  latitude: 38.24477
+  longitude: -122.079936
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact
+
+big_bobs:
+  id: 2
+  address: 3248 22nd Street
+  city: San Francisco
+  region: CA
+  postal_code: 94110
+  country: US
+  latitude: 37.755499
+  longitude: -122.419732
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact
+
+pivotals:
+  id: 3
+  address: 731 Market St
+  city: San Francisco
+  region: CA
+  postal_code: 94103
+  country: US
+  latitude: 37.787506
+  longitude: -122.403404
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact
+
+microsofts:
+  id: 4
+  address: 1020 102nd Ave NE
+  city: Bellevue
+  region: WA
+  postal_code: 98004
+  country: US
+  latitude: 47.619575
+  longitude: -122.204195
+  located_at: <%= Time.local(2006, 'Mar', 1).to_mysql %>
+  located_by: FakeLocationBackend
+  accuracy: exact

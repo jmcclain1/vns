@@ -1,0 +1,13 @@
+<h2>Log in</h2>
+
+<div id="login_message" style="color: red; font-size: 120%;font-style: bold;"></div>
+<% remote_form_for :user, :url => logins_url do |f| -%>
+<p><label for="email_address">Email Address or Unique Name</label><br/>
+  <%= f.text_field :email_address, :id => "ajax_user_email_address" %></p>
+
+<p><label for="password">Password</label><br/>
+  <%= f.password_field :password, :id => "ajax_user_password" %></p>
+
+<p><label for="auto_login"><%= check_box_tag 'auto_login', nil, nil, :id => "ajax_auto_login" %> Remember Me</label></p>
+<p><%= submit_tag 'Log in', :name => 'log_in', :id => 'ajax_login_button' %></p>
+<% end -%>

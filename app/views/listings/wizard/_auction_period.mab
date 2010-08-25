@@ -1,0 +1,31 @@
+div :id => 'auction_period' do
+  h3 "Set Auction Period"
+  p do
+    label do
+      text "Select Auction Duration "
+      select_helper(:listing, :auction_duration, Period.all_for_select)
+    end
+  end
+
+  javascript_tag <<-END
+    function update_auction_period() {
+      $('auction_period_spinny').style.visibility = 'visible';
+      new Ajax.Updater('auction_period',
+          '#{listing_auction_period_path(@listing)}?' + Form.serialize(this.form),
+          {asynchronous:true, evalScripts:true});
+    };
+    $('listing_auction_duration').onchange = update_auction_period;
+  END
+
+  p do
+    span :id => 'auction_end' do
+      text "Auction will end on "
+      span :class => 'end_time' do
+        listing.auction_end.strftime("%m/%d/%Y @ %H:%M")
+      end
+    end
+    text " (#{length_of_time_from_now(listing.auction_end)})"
+    img.spinny :id => 'auction_period_spinny',
+        :src => '/images/spinny.gif', :style => 'visibility: hidden;'
+  end
+end

@@ -1,0 +1,3 @@
+class TextAreaProfileQuestion < ProfileQuestion
+  
+end

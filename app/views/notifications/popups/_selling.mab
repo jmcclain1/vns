@@ -1,0 +1,50 @@
+def message_box_style
+  'height: 6em; overflow-y: scroll;' if is_ie? && listings.size > 3
+end
+
+div :class => 'alert_box', :id => 'selling_alert_box' do
+  h3 do
+    span(:class => 'count') {text listings.size}
+    text " listings with new messages and offers"
+  end
+
+  message_box_options = {:class => 'message_box' }
+  message_box_options[:style] = message_box_style  if message_box_style
+
+  div message_box_options do
+    for listing in listings
+      div :class => 'item' do
+        div :class => 'title' do
+          
+          link_to listing.vehicle.display_name, listing_buyers_path(listing)
+        end
+        div :class => 'messages' do
+          text "New Messages - #{logged_in_user.notifications.message.alerted.for_listing(listing).count}"
+          # text ", Unread Messages - #{logged_in_user.notifications.active.for_listing(listing).count}, "
+        end
+        div :class => 'offers' do
+          # text "New Offers - 0"
+          text "New Offers - #{logged_in_user.notifications.offer.active.for_listing(listing).count}"
+        end
+      end
+    end
+  end
+#  h3 :class => 'clear' do
+#    span :class => 'count' do
+#      text "1"
+#    end
+#    text " new list requests"
+#  end
+#  div message_box_options do
+#    for listing in listings
+#      div :class => 'item' do
+#        div :class => 'title' do
+#          text "Listing Title"
+#        end
+#        div :class => 'requestor' do
+#          text "Requestor Unknown"
+#        end
+#      end
+#    end
+#  end
+end

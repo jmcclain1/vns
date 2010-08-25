@@ -1,0 +1,5 @@
+class Actor < ActiveRecord::Base
+  def self.in_third_actor_skeleton?
+    true
+  end
+end

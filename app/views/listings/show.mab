@@ -1,0 +1,95 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+
+  div :class => 'tab' do
+    a 'Inbox', {:href => listings_path}
+  end
+  @tab_id = tablist_add(:id => listing.id,
+                        :name => "#{listing.vehicle_name}, #{listing.vehicle.stock_number}",
+                        :href => listing_path(@listing).to_s)
+  text tablist_paint
+end
+
+div :id => 'vehicle_summary' do
+  img(:src => @vehicle.primary_photo.versions[:small].url)
+
+  div :id => 'information' do
+    div :id => 'basic_information' do
+      div :id => 'listing_id' do
+        text "Listing ID# "
+        span.value "#{@listing.id}"
+      end
+      h1 @listing.vehicle_name
+      div do
+        span.value "#{@vehicle.odometer} Miles"
+        text ", "
+        span.value "#{@vehicle.exterior_color.name}/#{@vehicle.interior_color.name}"
+        text " #{@vehicle.doors} Doors, #{@vehicle.transmission_name}, #{@vehicle.drive_name}"
+      end
+    end
+
+    div :id => "listing_box" do
+      div.field do
+        text "Asking Price: "
+        span.value "#{@listing.asking_price.to_currency} "
+      end
+      div.field do
+        text "Current High Offer: "
+        span.value "#{high_offer(@listing)} "
+      end
+      div.field do
+        timing(@listing, :seller => true)
+        text " (#{@listing.auction_end})"
+      end
+    end
+  end
+
+  br.clear
+end
+
+div :id => 'details_tabs' do
+  tertiary_tab('listing_details', true)
+  tertiary_tab('messages_and_offers')
+
+  if @listing.cancelable?
+    form_tag(listing_cancel_path(:listing_id => @listing.id, 'event[comment]' => 'Listing cancelled').to_s, {:id => 'cancel_listing_form'})
+      form_btn 'Cancel Listing', :onclick => "$('cancel_listing_form').submit();"
+    end_form_tag
+  end
+  if listing.relistable?
+    form_tag(listing_relist_path(:listing_id => @listing.id, 'event[comment]' => 'Listing relisted').to_s, {:id => 'relist_listing_form'})
+      form_btn 'Relist', :onclick => "$('relist_listing_form').submit();"
+    end_form_tag
+  end
+end
+
+
+  div :id => 'details' do
+    div :id => 'scrollable_content' do
+      div(:id => 'details_and_messages') do
+
+        tertiary_tab_content(self, 'listing_details', true) do
+          render :partial => 'vehicles/details', :locals => { :vehicle => @vehicle, :read_only => false, :seller_view => true }
+        end
+
+        tertiary_tab_content(self, 'messages_and_offers') do
+          table :id => 'messages_offers_table' do
+            tr do
+              prospect_table(@listing)
+              prospect_message_container(@listing)
+            end
+          end
+        end
+
+        div(:style => "clear:both") {}
+      end
+    end
+  end
+
+if params[:panel]
+  script do
+    text "VNS.FormHelper.toggle_windowshade_form($('#{params[:panel]}'));"
+  end
+end

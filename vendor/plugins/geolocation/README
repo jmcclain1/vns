@@ -1,0 +1,36 @@
+Locator is a class used to find locations based on partial criteria.
+
+MODEL CONCEPTS:
+  - Location - address/lat/long info.
+  - Locatable - All models that have a location include this module.  Assumes a location_id field in the locatable models.
+  - Geolocator - location service.  Started up when the app starts in POST_LOAD_HOOKS.
+      - Done as a base class with subclasses.
+      - Several backends exist, for Yahoo, Google, db, and testing.
+
+USEFUL METHODS:
+- location.located? tells if the location has been located through a service, or if it's just user-entered.
+- location.located_by tells the backend that located this location.
+- location.located_at tells when the backend located it.
+- location.distance_from(location) returns the number of miles between two locations.
+
+- locatable.locator can be set to a locator of your choice.
+- locatable.locate!(freeform_text_info) will locate and store the best guess location.
+- locatable.locate! will adjust a location to best guess.
+- LocatableClass.find_within_radius(location, miles, finder_options) returns a list of locatables within this radius.
+- LocatableClass.calculate_search_area(location, miles) returns a struct representing the search area to find locations within.
+
+- Geolocator.default is whatever our preferred locator is.  This locator will be used by preference.
+- locator.locate(freeform_text_info) will return a Location describing our best guess about where this text is.
+- locator.locate(location) does the same thing with an incomplete location.
+
+INTEGRATION POINTS:
+- By default, the locator of choice is a Google locator pointing to the key GOOGLE_LOCATOR_KEY (which would be set in your environment).
+  You can get a key fairly easily from the Google Code API website.
+
+  To override which locator default to use, do Geolocator.default = XXXX where XXXX is a locator instance.
+
+  For example, this is a good thing to put in your test.rb POST_LOAD_BLOCK:
+    silence_warnings {Geolocator.default = FakeLocator.new}
+
+- All models that have a location should include the module Locatable.  You'll need to explicitly set the location property to a Location
+  instance before you can access location-like properties.  (However, locatable.locate!(string) will create a location if you don't have one yet)

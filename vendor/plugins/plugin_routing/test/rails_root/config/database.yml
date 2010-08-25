@@ -1,0 +1,13 @@
+setup: &setup
+  adapter: sqlite3
+  database: ":memory:"
+  verbosity: quiet
+  
+development:
+  <<: *setup
+
+test:
+  <<: *setup
+
+production:
+  <<: *setup

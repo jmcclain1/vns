@@ -1,0 +1,81 @@
+--- 
+#
+# This is a GemInstaller config file (http://geminstaller.rubyforge.org)
+# It was generated using the 'geminstaller --print-rogue-gems' option on Thu Oct 04 08:48:27 -0700 2007
+#
+# You can bootstrap your config by piping the output to a file: 
+#   'geminstaller --print-rogue-gems > geminstaller.yml'
+#
+# You can then install these gems on another system by running geminstaller with this file.
+#
+# The following config file(s) and gems were already specified:
+#   Files:
+#     * geminstaller.yml
+#   Gems:
+#     No Gems
+#
+defaults:
+  install_options: --include-dependencies
+gems: 
+- name: actionmailer
+  version: 1.3.3
+- name: actionpack
+  version: 1.13.3
+- name: actionwebservice
+  version: 1.2.3
+- name: activerecord
+  version: 1.15.3
+- name: activesupport
+  version: 1.4.2
+- name: capistrano
+  version: 2.0.0
+- name: capistrano-ext
+  version: 1.2
+- name: cgi_multipart_eof_fix
+  version: "2.3"
+- name: daemons
+  version: 1.0.8
+- name: fastercsv
+  version: 1.2.1
+- name: fastthread
+  version: "1.0"
+- name: flexmock
+  version: 0.7.1
+- name: gem_plugin
+  version: 0.2.2
+- name: geminstaller
+  version: 0.2.3
+- name: has_finder
+  version: 0.1.5
+- name: highline
+  version: 1.4.0
+- name: hpricot
+  version: "0.6"
+- name: mime-types
+  version: "1.15"
+- name: mongrel
+  version: 1.0.1
+- name: mongrel_cluster
+  version: 1.0.2
+- name: needle
+  version: 1.3.0
+- name: net-sftp
+  version: 1.1.0
+- name: net-ssh
+  version: 1.1.2
+- name: railroad
+  version: 0.4.0
+- name: rails
+  version: 1.2.3
+- name: rake
+  version: 0.7.3
+- name: rmagick
+  version: 1.15.10
+- name: rspec
+  version: 1.0.8
+- name: ruby-debug
+  version: 0.9.3
+- name: ruby-debug-base
+  version: 0.9.3
+- name: sources # NOTE: This gem may have been automatially installed with Ruby, and not actually be used by your app(s).
+  version: 0.0.1

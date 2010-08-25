@@ -1,0 +1,156 @@
+content_for(:subnav) do
+  form_tag(new_vehicle_path().to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+
+  div :class => 'tab' do
+    a 'Dealership Inventory', {:href => vehicles_path}
+  end
+  div :class => 'tab' do
+    a 'Drafts', {:href => '#'}
+  end
+
+  @tab_id = tablist_add(:id => vehicle.id,
+                        :name => "#{vehicle.display_name}, #{vehicle.stock_number}",
+                        :href => vehicle_path(@vehicle).to_s)
+  text tablist_paint
+end
+
+def display_name
+  h2 :id => 'display_name' do
+    text vehicle.display_name
+    span :class => 'certified' do
+      text "Certified" if vehicle.certified
+    end
+  end
+end
+
+def numbers_div
+  div :id => 'numbers' do
+    text "VIN# "
+    span :class => 'value' do
+      text "#{vehicle.vin}"
+    end
+    text "&nbsp;" * 4
+    text "Stock# "
+    span :class => 'value' do
+      text "#{vehicle.stock_number}"
+    end
+    br
+    h3 :id => 'days_in_inventory' do
+      text "#{vehicle.days_in_inventory} Days In Inventory"
+    end
+    unless vehicle.listed?
+      form_tag(inventory_item_path(:id => vehicle, :tab_id => @tab_id).to_s, {:id => "remove_from_inventory_form", :method => 'delete'})
+        form_btn "Remove from inventory", :id => 'remove_from_inventory_button', :onclick => "$('remove_from_inventory_form').submit();"
+      end_form_tag
+    end
+  end
+end
+
+def no_title
+  span :class => 'no_title' do
+    text "No Title"
+  end
+end
+
+def info_div 
+  div :id => 'info_box', :class => 'clear_left' do
+    text "#{vehicle.odometer} Miles, "
+    span :class => 'color' do
+      text "#{vehicle.exterior_color.name}/#{vehicle.interior_color.name}"
+    end
+    br
+    span do
+      text "#{vehicle.doors} Doors, #{vehicle.transmission_name}, #{vehicle.drive_name}"
+    end
+  end
+end
+
+def listing_band
+  div :id => 'listing_band' do
+    if vehicle.listed?
+      listing_box
+    else
+      unlisted_box
+    end
+  end
+end
+
+def listing_box
+  div :id => 'listing_box' do
+    div.left_content do
+      span.label "Listed by: "
+      span.data vehicle.listing.lister.full_name
+      span.label "Ends: "
+      span.data length_of_time_from_now(vehicle.listing.auction_end)
+      span.label "Active Offers: "
+      span.data vehicle.listing.active_offers
+    end
+    div.right_content do
+      link_to 'View Listing', listing_path(vehicle.listing), {:id => 'view_listing_btn'}
+    end
+  end
+end
+
+def unlisted_box
+  div :id => 'unlisted_box' do
+    div.left_content do
+      span.data 'Unlisted'
+      unless vehicle.listable?
+        span.label do
+          no_title
+        end
+        span.label do
+          text "(Vehicles with "
+          no_title
+          text " can not be listed)"
+        end
+      end
+    end
+    div.right_content do
+      create_listing_button(vehicle)
+    end
+  end
+end
+
+
+### Page Starts Here
+div :id => 'inventory_info' do
+  p flash[:notice], :class => 'flash_notice'
+  table do
+    tr do
+      td.first :rowspan => '4' do
+        img(:src => vehicle.primary_photo.versions[:small].url, :class => 'vehicle_image')
+      end
+      td.second do
+        display_name
+      end
+      td.third :rowspan => '2' do
+        numbers_div
+      end
+    end
+    tr do
+      td.second do
+        info_div
+      end
+    end
+    tr do
+      td.third :colspan => '2' do
+        listing_band
+      end
+    end     
+  end
+
+end
+
+div :id => 'details_tabs' do
+  tertiary_tab('inventory_item_detail', true)
+end
+
+
+div :id => 'scrollable_content', :class => 'clear' do
+  render :partial => 'vehicles/details', :locals => { :read_only => false, :seller_view => true }
+  div.clear { }
+end
+

@@ -1,0 +1,58 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1.task "Create Wholesale Listing"
+end
+
+text render(:partial => '/listings/wizard/wizard_bar', :locals => { :current_step => 5 })
+
+task_box(self) do
+  td.helper do
+    div.container do
+      h3 do
+        span :class => 'step' do
+          text "Step 5: "
+        end
+        text "Summary"
+      end
+      p "Review the information below and if accurate click the Create This Listing button."
+    end
+  end
+  td.content do
+    render_error_messages
+
+    h3 "Vehicle Details"
+    text render(:partial => 'vehicles/details', :locals => { :read_only => false, :seller_view => true })
+
+    def timing(time)
+      "#{time.strftime('%m/%d/%Y @ %H:%M')} (#{length_of_time_from_now(time)})"
+    end
+
+    h3 "Terms and Conditions"
+    table do
+      property_row("listing_type", "Listing Type", "VNS Auction")
+      field_row(listing,
+        Field::Money.new(:asking_price, "Asking Price", {:size => 10}),
+        nil, nil, true)
+      property_row("auction_duration", "Auction Duration", Period.description(listing.auction_duration))
+      property_row("auction_start", "Auction Starts", timing(listing.auction_start))
+      property_row("auction_end", "Auction Ends", timing(listing.auction_end))
+      property_row("inspection_duration", "Inspection Duration", Period.description(listing.inspection_duration))
+      property_row("trade_rules", "Trade Rules", listing.accept_trade_rules ? "Accepted" : "Not Accepted")
+    end
+
+    h3 "VNS Users Receiving Alerts"
+    p "The following is a list of VNS users that will receive an alert for this listing."
+    h4 "Partners"
+    p "You selected these partners to receive this listing."
+    partners_table(listing.recipients, false)
+  end
+end
+
+form_tag(listing_summary_path(@listing).to_s, {:method => :put, :id => 'listing_form'})
+  form_btn 'Create This Listing', :id => 'proceed_button', :class => 'task_button', :onclick => "$('listing_form').submit();"
+end_form_tag

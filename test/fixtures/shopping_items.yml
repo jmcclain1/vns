@@ -1,0 +1,23 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: shopping_items
+#
+#  id                :integer(11)     not null, primary key
+#  created_at        :datetime        
+#  updated_at        :datetime        
+#  dealership_id     :integer(11)     
+#  originator_id     :integer(11)     
+#  priority          :boolean(1)      
+#  min_year          :integer(11)     
+#  max_year          :integer(11)     
+#  make_id           :string(255)     
+#  model_id          :integer(11)     
+#  min_odometer      :integer(11)     
+#  max_odometer      :integer(11)     
+#  min_price         :integer(11)     
+#  max_price         :integer(11)     
+#  max_distance      :integer(11)     
+#  must_be_certified :boolean(1)      
+#
+

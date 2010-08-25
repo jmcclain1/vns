@@ -1,0 +1,13 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: partnerships
+#
+#  id          :integer(11)     not null, primary key
+#  created_at  :datetime        
+#  updated_at  :datetime        
+#  inviter_id  :integer(11)     
+#  receiver_id :integer(11)     
+#  accepted    :boolean(1)      
+#
+

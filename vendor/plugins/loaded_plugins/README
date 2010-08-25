@@ -1,0 +1,52 @@
+= loaded_plugins
+
+loaded_plugins adds Rails.plugins, a list all of the plugins that Rails has
+loaded.
+
+== Resources
+
+Wiki
+
+* http://wiki.pluginaweek.org/Loaded_plugins
+
+Announcement
+
+* http://www.pluginaweek.org/2006/11/02/2-loaded_plugins-a-monkey-plugin/
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/rails/loaded_plugins
+
+Development
+
+* http://dev.pluginaweek.org/browser/trunk/plugins/rails/loaded_plugins
+
+== Usage
+
+During initialization, Rails.plugins will keep track of a list of all of the
+plugins that have been loaded so far.  Once initialization is complete,
+Rails.plugins will contain all of the plugins loaded in the application.
+
+The order of the plugins will be based on the order in which the plugins were
+loaded during initialization.
+
+== Caveats
+
+If you need access to Rails.plugins during initialization of your application,
+you must use require_plugin from the plugin_dependencies plugin or ensure that
+loaded_plugins is loaded before your plugin.  Otherwise, if you load it during
+initialization with the following:
+
+  require 'loaded_plugins'
+
+This will not track all of the plugins that were loaded prior to it being
+required until AFTER initialization is complete.
+
+Also, note that the plugins are listed in the order that they are +completely+
+loaded.  That is, only after the entire initialization of a plugin is complete
+will it get added to Rails.plugins.
+  
+== Credits
+
+This plugin has been heavily influenced by the work James Adam has done in
+Engines 1.2 (http://www.rails-engines.org/).

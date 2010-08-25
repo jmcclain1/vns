@@ -1,0 +1,165 @@
+body {
+  background: #F4F4F4;
+}
+
+h1 {
+  background: #FECA26 url(/images/icons/task_title.png) 1em center no-repeat;
+  margin: 0 0 .5em 0;
+  padding: .2em 0 .2em 2.2em;
+}
+
+#main .content {
+  padding: 0 1.5em;
+}
+
+/* task box (container)                                                      */
+/*****************************************************************************/
+.task_box {
+  background:       #FFFFFF url(/images/backgrounds/task_helper.png) left top repeat-y;
+  border-style:     solid;
+  border-color:     #8B8B8B;
+  border-width:     1px 1px 1px 1px;
+  border-top:       2px solid #DDDDDD;
+  padding:          0 0 .5em 0;
+  overflow-y: auto;
+}
+
+.task_box #scrollable_content {
+  padding: 0;
+}
+
+.task_box table#task_table {
+  width: 100%;
+}
+
+.task_box td {
+  vertical-align:   top;
+  padding: .15em 0;
+}
+
+.task_box td.label_col {
+  width: 11em;
+}
+
+.task_box .helper {
+  padding:          0 20px;
+  width:            174px;
+}
+
+.task_box .helper .container {
+	width:						174px;
+}
+
+.task_box .helper h3 {
+  margin: 1em 0 0 0;
+  font-size: 1.3em;
+  font-weight: normal;
+}
+
+.task_box .helper h3 .step {
+  font-weight: bold;
+}
+
+
+.task_box .content {
+padding:          0 2em 2em 2em;
+}
+
+.task_box #details .content {
+  padding-top: .3em;
+}
+
+.task_box .content h3 {
+  background: #EBEBEB;
+  padding: .35em;
+  margin: 1em 0 1em -.5em;
+}
+
+.task_box fieldset {
+  margin:           0 0 1em 0;
+  padding:          0;
+  border:           none;
+  width: 100%;
+}
+
+.task_box fieldset legend small {
+  font-size:        1em;
+  font-weight:      normal;
+}
+
+/* wizard bar                                                                */
+/*****************************************************************************/
+#wizard_bar {
+  font-family:      Arial sans-serif;
+  height:           2em;
+  border-bottom:    1px solid #8B8B8B;
+  background:       #CCDEF2 url(/images/borders/lblue_top.png) top repeat-x;
+}
+
+#wizard_bar .left_cap {
+  width:            5px;
+  height:           2em;
+  float:            left;
+  background:       transparent url(/images/borders/lblue_top_left.png) left top no-repeat;
+}
+
+#wizard_bar .right_cap {
+  width:            5px;
+  height:           2em;
+  float:            right;
+  background:       transparent url(/images/borders/lblue_top_right.png) right top no-repeat;
+}
+
+#wizard_bar ol {
+  width:            auto ! important;
+  height:           2em;
+  padding-left:     10px;       /* shift right so items may compress back toward the left */
+}
+
+#wizard_bar ol li {
+  border-top:       1px solid #8B8B8B;
+}
+
+#wizard_bar ol li .content {
+  /*margin-left:      -10px;      *//* compress to the left */
+  padding:          .1em 20px .1em 14px;
+}
+
+#wizard_bar ol li.active {
+  background:       url(/images/tabs/wizard_selected_right.png) right center no-repeat;
+}
+
+#wizard_bar ol li.active .content {
+  background:       url(/images/tabs/wizard_selected_left.png) -44px center no-repeat;
+}
+
+#wizard_bar ol li .position {
+  font-size:        1.5em;
+  padding:          0 .2em;
+}
+
+#wizard_bar ol li .position,
+#wizard_bar ol li .text {
+  vertical-align:   middle;
+}
+
+#wizard_bar ol li .position,
+#wizard_bar ol li .text {
+  font-weight:      bold;
+  color: #7BACE6;
+
+}
+
+#wizard_bar ol li.active .position,
+#wizard_bar ol li.active .text {
+  color: #000000;
+}
+
+img.spinny {
+  margin-left: 1em;
+}
+
+.field_value {
+  font-weight: bold;
+  color: #000000;
+}

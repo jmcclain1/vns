@@ -1,0 +1,105 @@
+def sms_providers
+  [{:name => "T-Mobile", :email => '<phonenumber>@tmomail.net'},
+   {:name => "Virgin Mobile", :email => "<phonenumber>@vmobl.com"},
+   {:name => "Cingular", :email => "<phonenumber>@cingularme.com"},
+   {:name => "Sprint", :email => "<phonenumber>@messaging.sprintpcs.com"},
+   {:name => "Verizon", :email => "<phonenumber>@vtext.com"},
+   {:name => "Nextel", :email => "<phonenumber>@messaging.nextel.com"}]
+end
+
+def sms_help
+  markaby do
+    div :style => 'float: right;' do
+      b "SMS provider email addresses:"
+      br
+      i "Example: 2125551212@vtext.com"
+      table :id => 'provider_email_addresses' do
+        sms_providers.each do |provider|
+          name = provider[:name]
+          email = provider[:email]
+
+          tr do
+            td(:class => 'label_col') do
+              label(:for => name) do
+                text "#{name}:"
+              end
+            end
+            td(:class => 'field_value') do
+              text CGI::escapeHTML(email)
+            end
+          end
+        end
+      end
+    end
+  end
+end
+
+manage_subnavbar :active_tab => 'Preferences'
+
+render_error_messages
+
+div :id => 'scrollable_content' do
+  form_for(:user,
+           @user,
+           :url => user_path(@user).to_s,
+           :html => {:id => 'preferences_form', :method => :put, :action => :update }) do |form|
+
+    sms_help
+
+    div :id => 'sms_options' do
+      h3 'SMS Options'
+
+      p do
+        b 'SMS Address: '
+        text_field('user', 'sms_address', :value => @user.sms_address)
+      end
+
+      p do
+        check_box('user', :sms_wants_any_sms, :value => @user.sms_wants_any_sms)
+        text "Enable SMS messages"
+      end
+
+      div(:style => "margin: 10px") do
+
+      p do
+        check_box('user', :sms_wants_new_offer, :value => @user.sms_wants_new_offer)
+        text "Receive SMS when you receive a new offer"
+      end
+
+#      Do not expose this option for the moment, per Jeff
+#      p do
+#        check_box('user', :sms_wants_listing_expired, :value => @user.sms_wants_listing_expired)
+#        text "Receive SMS when a listing expires?"
+#      end
+
+      p do
+        check_box('user', :sms_wants_inquiry, :value => @user.sms_wants_inquiry)
+        text "Receive SMS when you receive an inquiry about one of your listings"
+      end
+
+      p do
+        check_box('user', :sms_wants_reply, :value => @user.sms_wants_reply)
+        text "Receive SMS when you receive a reply to one of your inquiries about a listing"
+      end
+
+      p do
+        check_box('user', :sms_wants_auction_won, :value => @user.sms_wants_auction_won)
+        text "Receive SMS when you win an auction"
+      end
+
+      p do
+        check_box('user', :sms_wants_auction_lost, :value => @user.sms_wants_auction_lost)
+        text "Receive SMS when you lose an auction"
+      end
+
+      p do
+        check_box('user', :sms_wants_auction_cancel, :value => @user.sms_wants_auction_cancel)
+        text "Receive SMS when a listing you are interested in is cancelled"
+      end
+      end
+      
+    end
+
+    form_btn "Save Changes", :onclick => "$('preferences_form').submit();"
+  end
+end

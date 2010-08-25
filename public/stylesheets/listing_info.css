@@ -1,0 +1,20 @@
+@import 'tasks.css';
+
+#review .field_value {
+  font-weight: bold;
+  color: #000000;
+}
+
+#vehicle_equipment_list label {
+	clear: both;
+	display: block;
+}
+
+#vehicle_equipment_list label input {
+	margin-left: 1em;
+}
+
+#vehicle_equipment_list label.header {
+	font-weight: bold;
+	margin-top: .4em;
+}

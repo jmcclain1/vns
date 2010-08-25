@@ -1,0 +1,5 @@
+manage_subnavbar :active_tab => 'Home'
+
+div :id => 'scrollable_content' do
+  h4 "Welcome, #{@user.full_name}!"
+end

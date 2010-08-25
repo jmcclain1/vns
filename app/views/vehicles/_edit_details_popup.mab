@@ -1,0 +1,4 @@
+edit_popup(:aspect => 'vehicle_details', :target => @vehicle, :redraw => @redraw, :page_reload => @page_reload) do |form|
+  vehicle_details_edit_controls(@vehicle, form)
+  vehicle_equipment_list_controls
+end

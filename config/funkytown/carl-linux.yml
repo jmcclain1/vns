@@ -1,0 +1,24 @@
+<%
+ puts "loading configuration carl-linux"
+ ubuntu = "carl-linux"
+ osx = "carl"
+ win = "carl-win"
+%>
+external_app_server_host: <%= ubuntu %>
+
+selenium_servants:
+# <%= osx %>:
+#   port: 4444
+#   browsers:
+#     - firefox
+ <%= win %>:
+   port: 4444
+   browsers:
+     - firefox
+
+jsunit_master_host: <%= ubuntu %>
+jsunit_servants:
+# <%= osx %>:
+#   port: 8081
+ <%= win %>:
+   port: 8081

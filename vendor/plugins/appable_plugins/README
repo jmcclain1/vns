@@ -1,0 +1,177 @@
+= appable_plugins
+
+appable_plugins adds the ability for plugins to share models, controllers,
+helpers, and other application classes with your Rails application.  Classes are
+automatically mixed in with your own or other plugins' classes.
+
+== Resources
+
+Wiki
+
+* http://wiki.pluginaweek.org/Appable_plugins
+
+Announcement
+
+* http://www.pluginaweek.org/2006/11/14/5-appable_plugins-start-building-your-product-line/
+
+Source
+
+* http://svn.pluginaweek.org/trunk/plugins/rails/appable_plugins
+
+Development
+
+* http://dev.pluginaweek.org/browser/trunk/plugins/rails/appable_plugins
+
+== Background
+
+Normally, a plugin would add models, controllers, and helpers to the main Rails
+application by requiring the appropriate files when the plugin is initialized.
+For example, something like a plugin called acts_as_commentable would normally
+have the following setup:
+
+Directory structure:
+  acts_as_commentable/
+  acts_as_commentable/lib/
+  acts_as_commentable/lib/acts_as_commentable/
+  acts_as_commentable/lib/acts_as_commentable/comment.rb
+  acts_as_commentable/lib/acts_as_commentable.rb
+  acts_as_commentable/init.rb
+
+acts_as_commentable/init.rb:
+  require 'acts_as_commentable'
+
+acts_as_commentable/lib/acts_as_commentable.rb
+  require 'acts_as_commentable/comment'
+  
+  ...do stuff...
+
+acts_as_commentable/lib/acts_as_commentable/comment.rb
+  class Comment < ActiveRecord::Base
+    ...
+  end
+
+However, this setup causes a major problem.  Specifically, once the constant
+'Comment' is set, your own model/controller/helper will be ignored unless you
+explicitly require it in your environment.rb.  This is more work than should be
+necessary.
+
+The goal of this plugin is to make it really easy for plugin developers to add
+models/controllers/helpers/etc. that are automatically mixed in with your
+existing classes.
+
+== How It Works
+
+appable_plugins expects developers to store each model/controller/helper in a
+similar directory as that of your application.  For example,
+
+  plugin_xyz/
+  plugin_xyz/app/
+  plugin_xyz/app/controllers/
+  plugin_xyz/app/helpers
+  plugin_xyz/app/models/
+
+The plugin will follow all conventions by adding each directory under the app/
+folder to the load paths (see $LOAD_PATH).  In addition, by default, all paths
+will also be added to Dependencies.load_paths and Dependencies.load_once_paths.
+
+appable_plugins is able to automatically load both plugin files and app files by
+simply wrapping require and load calls.  It will then look in plugin folders
+first before allowing the original require/load to get called.  The following
+occurs regardless of whether the framework is loading or requiring
+a file as a result of a load/require or missing constant:
+
+1. First, appable_plugins will search through your loaded plugins, looking for
+a file with the same name as the file that is being loaded.  For example, if
+you tried to access PluginAWeek::FooController, then appable_plugins would start
+looking for a file named plugin_a_week/foo_controller.rb in the plugin
+app/controllers/ folders.
+1. If any files are found in any plugins, the files are loaded in the order in
+which the plugins were loaded.
+1. Finally, the original require/load will be execute (well, it's a bit more
+complex, but that's essentially what happens).
+
+== Full Example
+
+Let's assume you want to write a plugin called acts_as_commentable.  You would
+setup a directory structure like the following:
+
+  acts_as_commentable/
+  acts_as_commentable/app/
+  acts_as_commentable/app/models/
+  acts_as_commentable/app/models/comment.rb
+  acts_as_commentable/lib/
+  acts_as_commentable/lib/acts_as_commentable.rb
+  acts_as_commentable/init.rb
+
+acts_as_commentable/init.rb:
+  require 'acts_as_commentable'
+
+acts_as_commentable/lib/acts_as_commentable.rb
+  ...add your macro stuff here...
+
+acts_as_commentable/app/models/comment.rb
+  class Comment < ActiveRecord::Base
+    ...
+  end
+
+Let's then assume that our main Rails app has a Comment model as well like so:
+
+Application structure:
+  app/
+  app/models/
+  app/models/comment.rb
+
+app/models/comment.rb
+  class Comment < ActiveRecord::Base
+    ...add some additional things...
+  end
+
+When you first try to access the Comment model, appable_plugins will have
+already indexed your plugin folders and knows it first needs to load comment.rb
+from your acts_as_commentable plugin.  Once this finished, it will then load
+the comment.rb stored in your application's app/models/ folder.  As a result,
+the code from both Comment models are now mixed in and shared automatically.
+
+== Installing it as a gem
+
+If you've installed this as a gem, you simply need to add the following within
+your config/environment.rb to get it working:
+
+config/environment.rb:
+  require 'appable_plugins'
+  ...rest of your code...
+
+The above require must be added +prior+ to calling <tt>Rails::Initializer.run</tt>
+
+== Adding additional types to automatically mix
+
+If you want to add additional class types to have automatically mixed in, you
+can do so through the following:
+
+  Plugin.mixable_app_types[:activities] = /.+_activity/
+
+This tells appable_plugins that you have an app/activities folder whose file
+names are matched by the given regular expression.  By default, appable_plugins
+supports the following app types:
+
+  :controllers => /.+_controller|application/
+  :helpers => /.+_helper/
+  :apis => /.+_api/
+  :services => /.+_service/
+  :models => /.+/
+
+== Caveats
+
+If installed as a plugin, the plugin_dependencies plugin must be installed for
+appable_plugins to work.  Please see the links below to find out how to install
+these plugins.
+
+You must also have a lib/ path define in your application folder.  By default,
+Rails will create this for you, so you shouldn't have a problem if the
+directory structure has not been modified.
+
+== Dependencies
+
+This plugin depends on the presence of the following plugins:
+# loaded_plugins - http://wiki.pluginaweek.org/Loaded_plugins
+# plugin_dependencies - http://wiki.pluginaweek.org/Plugin_dependencies (only if not using the gem version)

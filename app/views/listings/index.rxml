@@ -1,0 +1,82 @@
+def year_column(listing)
+  markaby do
+    span.data listing.vehicle.year.to_s
+  end
+end
+
+def make_model_column(listing)
+  make_model_info(listing, listing_path(listing))
+  # buttons here
+end
+
+def price_column(listing)
+  price_info(listing)
+  # buttons here
+end
+
+def activity_column(listing)
+  if listing.events.size == 0
+    last_event = nil
+    last_event_time = listing.updated_at
+    message = "Listing created/updated"
+  else
+    last_event = listing.events.first
+    last_event_time = last_event.updated_at
+    message = last_event.description_for_seller
+  end
+  
+
+  markaby do
+    activity_time(last_event_time)
+    br
+    br
+    span message
+    if listing.relistable?
+      form_tag(listing_relist_path(:listing_id => listing.id, 'event[comment]' => 'Listing relisted').to_s, {:id => 'relist_listing_form'})
+        form_btn 'Relist', :class => 'small_button', :onclick => "$('relist_listing_form').submit();"
+      end_form_tag
+    end
+  end
+end
+
+def status_column(listing)
+  listing.events.reload
+  markaby do
+    div.status do
+      p do
+        timing(listing, :seller => true)
+      end
+      high_offer = listing.high_offer
+      unless high_offer.nil?
+        p do
+          text "High Offer: "
+          b high_offer.amount.to_currency
+        end
+      end
+      count_all     = listing.events.count
+      count_unread  = listing.notifications.unread.for_recipient(logged_in_user).count
+      path          = listing_buyers_path(:id => listing.id)
+      status_messages_info(count_all, count_unread, path)
+    end
+  end
+end
+
+
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.tag!("ajax-response") do
+  xml.response(:type => "object", :id => "listings_grid") do
+    xml.rowcount @total_rows if @want_row_count
+    xml.rows :update_ui => true, :offset => @offset do
+      for listing in @listings
+        xml.tr do
+          xml.td {|d| d << year_column(listing) }
+          xml.td {|d| d << make_model_column(listing) }
+          xml.td {|d| d << mileage_column(listing) }
+          xml.td {|d| d << price_column(listing) }
+          xml.td {|d| d << activity_column(listing) }
+          xml.td {|d| d << status_column(listing) }
+        end
+      end
+    end
+  end
+end

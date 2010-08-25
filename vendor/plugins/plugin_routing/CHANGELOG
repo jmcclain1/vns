@@ -1,0 +1,23 @@
+*SVN*
+
+*0.1.0* (March 31st, 2007)
+
+* Reorganize code a little better
+
+* Support running tests with plugins loaded via edge pluginaweek.  Fixes #10 [Brian Takita]
+
+* Updated to use the new Plugin interface
+
+* Added empty files so that test directories get added to the gem
+
+*0.0.2* (February 3rd, 2007)
+
+* Released as a gem
+
+* Update tests to work across platforms
+
+* Fix layout_list breaking because of a misspelled word
+
+*0.0.1* (November 24th, 2006)
+
+* Initial release

@@ -1,0 +1,206 @@
+ul#review_fields li {
+
+}
+
+#review_fields {
+  margin: 0 0 2em 0;
+}
+
+#review_fields .static_vehicle_detail_lbl {
+  width: 8em;
+  float: left;
+}
+
+#review_fields .static_vehicle_detail {
+  font-weight: bold;
+}
+
+#details_container {
+}
+
+fieldset .field_label,
+#details_fields label, #review_container .field_label {
+  width: 12em;
+  display: block;
+  float: left;
+}
+
+fieldset .field_value,
+#review_container .field_value {
+  font-weight: bold;
+  color: #000000;
+}
+
+fieldset table td {
+  vertical-align:   top;
+  padding: .15em 0;
+}
+
+fieldset table td.label_col {
+  width: 11em;
+}
+
+/*--- vehicle details page --*/
+
+body {
+  background: #EAEAEA;
+}
+
+#main .content {
+}
+
+.field_value {
+  font-weight: bold;
+  color: #000000;
+}
+
+#inventory_info {
+	padding: .6em 0;
+  background: #F4F4F4;
+	width: 100%;
+}
+
+#inventory_info .vehicle_image {
+	float: left;
+	width: 60px;
+	height: 45px;
+	margin: 0 10px 0 0;
+}
+
+#inventory_info #title_row h2#display_name {
+	margin: 0;
+}
+
+#inventory_info #numbers h3#days_in_inventory {
+	font-size: 1.4em;
+	margin-bottom: 0;
+}
+
+#inventory_info table {
+	width: 100%;
+	height: 6.5em;
+}
+#inventory_info table td {
+	vertical-align: top;
+}
+#inventory_info table td.first {
+	width: 70px;
+	padding: 0 0 0 1.6em;
+	vertical-align: top;
+}
+#inventory_info table td.third {
+	padding: 0 1.6em 0 0;
+}
+
+.unlisted {
+  font-style:italic;
+}
+
+.no_title {
+  color: red;
+}
+
+#numbers {
+  float:right;
+  text-align: right;
+}
+
+#numbers .value {
+  font-weight: bold;
+}
+
+#listing_band div#listing_box {
+	border: 1px solid #c09c20;
+	background: #fec827;
+	height: 1em;
+	padding: .1em .5em .2em .5em;
+}
+
+#listing_band div#unlisted_box {
+	min-height: 1px;
+}
+
+#listing_band div.left_content {
+	width: 75%;
+	float: left;
+	font-size: .9em;
+}
+
+#listing_band div.right_content {
+	width: 25%;
+	float: left;
+	text-align: right;
+	font-size: .9em;
+}
+
+#listing_band div.right_content form a,
+#numbers #remove_from_inventory_form a {
+	float: right;
+}
+
+#listing_band #listing_box div.right_content,
+#listing_band #listing_box div.left_content, {
+	height: 1em;
+}
+
+#listing_band div.left_content .data {
+	font-weight: bold;
+	display: block;
+	float: left;
+	margin: 0 2em 0 0;
+}
+
+#listing_band div.left_content .label {
+	display: block;
+	float: left;
+	margin: 0 1em 0 0;
+}
+
+#listing_band div#unlisted_box .left_content .data {
+	font-style: italic;
+	font-weight: normal;
+	margin: 0 1em 0 0;
+}
+
+#listing_band div#unlisted_box .left_content .label {
+}
+
+h2 {
+  margin: 0 0 .1em 0;
+  padding: 0;
+}
+
+h2#display_name {
+  float: left;
+}
+
+#info_box .color {
+  font-weight: bold;
+}
+
+#info_box .dealership {
+  font-weight: bold;
+}
+
+#general_info {
+  float: left;
+}
+
+#listing_info {
+  float: right;
+}
+
+.vehicle_color {
+  font-weight: bold;
+}
+
+.certified {
+  display: inline;
+  margin: 0 0 0 .7em;
+  font-size: .6em;
+  color: #254083;
+}
+
+iframe#vehicle_photos_container {
+  float: left;
+}

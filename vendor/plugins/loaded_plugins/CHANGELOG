@@ -1,0 +1,31 @@
+*SVN*
+
+* Add a more diverse set of Plugin callbacks (before_load, after_load, and after_initialize)
+
+* Add support for getting the proper name of plugin gem formats (i.e. plugin_xyz-1.2.0)
+
+* Respect manual specification of plugins in configuration.plugins instead of assuming that all plugins will be loaded
+
+* Refactor laded_plugins.rb into files for each individual class being extended. #12 [Brian Takita]
+
+* Adopt James Adam's Engines 1.2 style of tracking plugins
+
+* Added empty files so that test directories get added to the gem
+
+*0.0.4 (February 15th, 2007)
+
+* Don't add plugins that weren't specified in the configuration
+
+*0.0.3* (February 3rd, 2007)
+
+* Fix inserting already-loaded plugins in the wrong order when loaded_plugins has been loaded as a gem midway through initialization
+
+* Moved tasks into lib files so that they could be more easily tested
+
+*0.0.2* (February 1st, 2007)
+
+* When using dependencies, dependent plugins now appear +before+ the plugin that required them
+
+*0.0.1* (November 2nd, 2006)
+
+* Initial release

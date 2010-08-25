@@ -1,0 +1,29 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: dealerships
+#
+#  id          :integer(11)     not null, primary key
+#  name        :string(255)     
+#  location_id :integer(11)     
+#
+
+valid_dealership_1:
+  id: 23001
+  name: Bob's Big Autos
+  location_id: 2
+
+valid_dealership_2:
+  id: 23002
+  name: Big Al's Autos
+  location_id: 1
+
+valid_dealership_3:
+  id: 23003
+  name: Pivotal Autos
+  location_id: 3
+
+valid_dealership_4:
+  id: 23004
+  name: Microsoft's Autos
+  location_id: 4

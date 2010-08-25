@@ -1,0 +1,2 @@
+class StockProfilePhoto < ProfilePhoto
+end

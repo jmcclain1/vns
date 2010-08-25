@@ -1,0 +1,96 @@
+def year_column(prospect)
+  markaby do
+    span.data prospect.listing.vehicle.year.to_s
+    div.source do
+      span prospect.source
+    end
+  end
+end
+
+def make_model_column(prospect)
+  markaby do
+    make_model_info(prospect.listing, prospect_path(prospect))
+    form_tag(prospect_path(prospect).to_s, {:method => :delete, :id => "remove_from_inbox_form_#{prospect.listing.id}"})
+      form_btn 'Remove from Inbox',
+        :id      => "remove_from_inbox_#{prospect.listing.id}",
+        :class   => ('button_disabled' unless prospect.removable?), 
+        :onclick => (prospect.removable? ? "$('remove_from_inbox_form_#{prospect.listing.id}').submit();" : "return false;")
+    end_form_tag
+  end
+end
+
+def distance_column(prospect)
+  markaby do
+    span.data prospect.listing.dealership.location.distance_from(logged_in_user.location).round.to_s + " Miles"
+    br.clear
+    span.distance_from "from Zip #{logged_in_user.dealership.postal_code}"
+  end
+end
+
+def price_column(prospect)
+  markaby do
+    price_info(prospect.listing)
+    br
+    span "My Offer: #{prospect.active_offer.amount.to_currency}" if prospect.active_offer
+    br
+    form_btn offer_button_label(prospect), :id => "offer_btn_#{prospect.id}", :class => "small_button", :onclick => "location.href='#{prospect_messages_path(:id => prospect.id, :panel => 'offer')}';"
+  end
+end
+
+def activity_column(prospect)
+  if prospect.events.size == 0
+    last_event = nil
+    last_event_time = prospect.updated_at
+    if prospect.created_at == prospect.updated_at
+      message = "Opportunity created"
+    else
+      message = "Opportunity updated"
+    end
+  else
+    last_event = prospect.events.first
+    last_event_time = last_event.updated_at
+    message = last_event.description_for_buyer
+  end
+
+  markaby do
+    activity_time(last_event_time)
+    br
+    br
+    span message
+  end
+end
+
+def status_column(prospect)
+
+  markaby do
+    p do
+      timing(prospect.listing, :winner => prospect.winner?)
+    end
+
+    count_all     = prospect.events.count
+    count_alerted = prospect.notifications.alerted.for_recipient(logged_in_user).count
+    count_unread  = prospect.notifications.unread.for_recipient(logged_in_user).count
+    path          = prospect_messages_path(:id => prospect.id)
+    status_messages_info(count_all, count_unread, path)
+  end
+end
+
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.tag!("ajax-response") do
+  xml.response(:type => "object", :id => "prospects_grid") do
+    xml.rowcount @total_rows if @want_row_count
+    xml.rows :update_ui => true, :offset => @offset do
+      for prospect in @prospects
+        xml.tr do
+          xml.td {|d| d << year_column(prospect) }
+          xml.td {|d| d << make_model_column(prospect) }
+          xml.td {|d| d << mileage_column(prospect.listing) }
+          xml.td {|d| d << distance_column(prospect) }
+          xml.td {|d| d << price_column(prospect) }
+          xml.td {|d| d << activity_column(prospect) }
+          xml.td {|d| d << status_column(prospect) }
+        end
+      end
+    end
+  end
+end

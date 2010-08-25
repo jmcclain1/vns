@@ -1,0 +1,116 @@
+content_for(:subnav) do
+  div :class => 'tab' do
+    a 'Inbox', {:href => prospects_path}
+  end
+  div :class => 'tab' do
+    a 'Find Vehicles', {:href => new_prospect_path}
+  end
+  div :class => 'tab_active' do
+    a 'Shopping List', {:href => shopping_items_path}
+  end
+  text tablist_paint
+end
+
+def priority_button_label(item)
+  item.priority ? "Stop Priority" : "Mark as Priority"
+end
+
+div :id => 'scrollable_content' do
+
+  shopping_list_form
+
+  script do
+    text "function toggleMore() { Element.toggle($('more')); Element.toggle($('show_more')); }"
+    text "function clearMore() { }"
+    if item.errors[:min_price] || item.errors[:max_price] ||
+       item.errors[:min_odometer] || item.errors[:max_odometer]
+      text "toggleMore();"
+    end
+  end
+
+
+  h1 "Shopping List - #{@items.size}"
+
+  table :id => 'shopping_list' do
+    tr do
+      th "Year"
+      th(:align => "left") do
+       text "Make/Model"
+      end
+      th "Priority"
+      th "Distance"
+      th "Asking Price"
+      th "Mileage"
+    end
+    for item in @items
+      tr(:class => item.priority ? 'priority' : 'normal') do
+        td.year(:width => "1%", :class => 'value') do
+          if item.min_year.nil?
+            text item.max_year.nil? ? "Any" : "Up to #{item.max_year}"
+          else
+            text item.max_year.nil? ? "#{item.min_year} and later" : "#{item.min_year}-#{item.max_year}"
+          end
+        end
+        td.make_model(:class => 'value') do
+          if item.make.nil?
+            text "Any"
+          else
+            text item.make.name
+            text " "
+            text item.model.nil? ? "(Any Model)" : item.model.name
+          end
+          if item.must_be_certified
+            text " - must be certified"
+          end
+        end
+        td.priority_cell(:width => "1%") do
+          if item.priority
+            b "Yes"
+          end
+        end
+        td.distance(:width => "1%") do
+          if item.max_distance && item.max_distance > 0 
+            text item.max_distance
+            text "&nbsp;mile"
+            text "s" unless item.max_distance == 1
+          else
+            text "Any"
+          end
+        end
+        td.price(:width => "5%") do
+          if item.min_price || item.max_price
+            text "Min.&nbsp;$#{item.min_price}" if item.min_price
+            br if item.min_price && item.max_price
+            text "Max.&nbsp;$#{item.max_price}" if item.max_price
+          else
+            text "Any"
+          end
+        end
+        td.odometer(:width => "1%") do
+          if item.min_odometer || item.max_odometer
+            text "Min.&nbsp;#{item.min_odometer}&nbsp;miles" if item.min_odometer
+            br if item.min_odometer && item.max_odometer
+            text "Max.&nbsp;#{item.max_odometer}&nbsp;miles" if item.max_odometer
+          else
+            text "Any"
+          end
+        end
+       end
+
+      tr(:class => "button_row " + (item.priority ? 'priority' : 'normal')) do
+        td
+        td(:colspan => 5) do
+          form_tag(shopping_item_path(item).to_s, {:method => :delete, :id => "remove_from_list_#{item.id}"})
+            form_btn "Remove from Shopping List", :onclick => "$('remove_from_list_#{item.id}').submit();"
+          end_form_tag
+          form_tag(shopping_item_path(:id => item.id, 'item[priority]' => (item.priority ? '0' : '1')).to_s, {:method => :put, :id => "mark_priority_#{item.id}"})
+            form_btn priority_button_label(item), :onclick => "$('mark_priority_#{item.id}').submit();"
+          end_form_tag
+        end
+      end
+    end
+  end
+  br
+  br
+
+end

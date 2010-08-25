@@ -1,0 +1,19 @@
+#invite_box {
+  height: 3em;
+  text-align: right;
+  padding: .5em 0 0 0;
+  background: #F4F4F4;
+}
+
+body {
+  background: #EAEAEA;
+}
+
+#details {
+  padding: 0;
+}
+
+#details #scrollable_content {
+  padding: 1em 2em 2em 1em;
+}
+

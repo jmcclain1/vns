@@ -1,0 +1,8 @@
+url = url_for(:controller => 'vehicle_photos', :action => :show, :vehicle_id => @vehicle.id, :read_only => @read_only)
+iframe(
+  :id           => 'vehicle_photos_container', 
+  :src          => url,
+  :frameborder  => '0',
+  :scrolling    => 'no',
+  :style        => 'margin: 10px 10px 20px 5px; width:459px; height:280px; border: 1px solid #CCCCCC;'
+) {}

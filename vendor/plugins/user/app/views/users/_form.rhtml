@@ -1,0 +1,15 @@
+<%= error_messages_for 'user' %>
+
+<p><label for="user_email_address">Email Address</label><br/>
+<%= text_field 'user', 'email_address'  %></p>
+
+<% if @user.new_record? -%>
+  <p><label for="user_password">Password</label><br/>
+  <%= password_field 'user', 'password'  %></p>
+  
+  <p><label for="user_password">Confirm Password</label><br/>
+  <%= password_field 'user', 'password_confirmation'  %></p>
+
+  <p><label for="user_unique_name">Unique Name</label><br/>
+  <%= text_field 'user', 'unique_name'  %></p>
+<% end -%>

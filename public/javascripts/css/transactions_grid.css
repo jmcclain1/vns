@@ -1,0 +1,18 @@
+@import 'vns_common.css';
+
+/*--- Partner Listing Grid ---*/
+
+.ricoLG_outerDiv {
+  border: #8B8B8B 1px solid;
+}
+
+#transactions_grid { width: 98%;}
+
+#transactions_grid_scrollDiv {
+  overflow: auto;
+}
+
+td .ricoLG_col div.ricoLG_cell {
+height:5em;
+}
+

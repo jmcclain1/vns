@@ -1,0 +1,31 @@
+content_for(:subnav) do
+  form_tag(new_vehicle_path().to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+end
+
+h1 "New vehicle"
+
+error_messages_for :vehicle
+
+table do
+  form_for(:vehicle, @vehicle, :url => vehicles_path.to_s, :html => {:id => 'new_vehicle_form'}) do |f|
+    VehicleField::ALL.each do |field|
+      tr do
+        th do
+          b field.title
+        end
+        td do
+          text field.editor_html(f)
+        end
+      end
+    end
+    tr do
+      td
+      td do
+        form_btn "Create", :onclick => "$('new_vehicle_form').submit();"
+      end
+    end
+  end
+end
+link_to 'Back', vehicles_path

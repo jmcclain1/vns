@@ -1,0 +1,60 @@
+# note: transactions are currently prospects
+
+def buy_sell_column(transaction)
+  markaby do
+    if transaction.dealership_id == logged_in_user.dealership.id
+      b "Purchased"
+      text " from"
+      br
+      text transaction.listing.dealership.name
+    else
+      b "Sold"
+      text " to"
+      br
+      text transaction.dealership.name
+    end
+  end
+end
+
+def year_column(transaction)
+  markaby do
+    span.data transaction.listing.vehicle.year.to_s
+  end
+end
+
+def make_model_column(transaction)
+  markaby do
+    make_model_info(transaction.listing, nil, false)
+  end
+end
+
+def date_column(transaction)
+  markaby do
+    won_event_time = transaction.winning_offer.updated_at
+    activity_time(won_event_time)
+  end
+end
+
+def amount_column(transaction)
+  markaby do
+    span.data transaction.winning_amount.to_currency
+  end
+end
+
+xml.instruct! :xml, :version=>"1.0", :encoding=>"UTF-8"
+xml.tag!("ajax-response") do
+  xml.response(:type => "object", :id => "transactions_grid") do
+    xml.rowcount @total_rows if @want_row_count
+    xml.rows :update_ui => true, :offset => @offset do
+      for transaction in @transactions
+        xml.tr do
+          xml.td {|d| d << buy_sell_column(transaction)}
+          xml.td {|d| d << year_column(transaction) }
+          xml.td {|d| d << make_model_column(transaction) }
+          xml.td {|d| d << date_column(transaction) }
+          xml.td {|d| d << amount_column(transaction) }
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,26 @@
+Primary Photo:
+<br/>
+<%= image_tag @profile.primary_photo.versions[:original].url, :size => '100x100' %>
+<br/>
+
+<% for category in @profile.categories_with_answers %>
+  <div>
+    <% for answer in @profile.answers_in_category(category) %>
+      <div>
+        <span>
+          <%=h answer.question.display_name %>:
+        </span>
+        <%=h answer %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<br/>
+
+<% if @profile.non_stock_photos.size > 0 %>
+Personal Photos:
+  <%= render :partial => 'profile/profile_photos',
+        :locals => {:photos => @profile.non_stock_photos}
+  %>
+<% end %>
+<br/>

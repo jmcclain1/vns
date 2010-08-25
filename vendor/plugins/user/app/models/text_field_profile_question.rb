@@ -1,0 +1,3 @@
+class TextFieldProfileQuestion < ProfileQuestion
+  
+end

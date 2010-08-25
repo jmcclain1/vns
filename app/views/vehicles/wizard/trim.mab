@@ -1,0 +1,55 @@
+content_for(:subnav) do
+  form_tag(new_vehicle_path().to_s, {:id => "create_new_vehicle_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Add Vehicle To Inventory", :onclick => "$('create_new_vehicle_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1 "Add a vehicle to inventory"
+end
+
+form_for(:vehicle, @vehicle,
+         :url => vehicle_path(:id => @vehicle, 'wizard[step]' => 'trim', :escape => false).to_s,
+         :html => {:id => 'inventory_form', :method => :put}) do |form|
+  text form.hidden_field(:id)
+
+  text render(:partial => '/vehicles/wizard/wizard_bar', :locals => { :current_step => 2 })
+
+  task_box(self) do
+    td.helper do
+      h3 do
+        span :class => 'step' do
+          text "Step 2: "
+        end
+        text "Select Vehicle"
+      end
+      p "Select the vehicle from the list below that matches your vehicle."
+    end
+    td.content do
+      render_error_messages
+
+      h3 do
+        text "Select Vehicle"
+        small " - System retrieved the following vehicles"
+      end
+
+      ul.fields_list do
+        selected_trim_id = vehicle.trim.nil? ? @vehicle.trims.first.id : @vehicle.trim.id
+        @vehicle.trims.each do |trim|
+          fields_for(:trim, trim) do |trim_fields|
+            li do
+              label do
+                attributes = {:type => 'radio', :name => 'vehicle[trim_id]', :value => trim.id}
+                attributes[:checked] = 'checked' if trim.id == selected_trim_id
+                input attributes
+                text trim.characterization
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
+  form_btn 'Proceed to Complete Vehicle Details', :id => 'proceed_button', :class => 'task_button', :onclick => "$('inventory_form').submit();"
+end

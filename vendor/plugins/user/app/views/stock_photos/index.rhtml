@@ -1,0 +1,23 @@
+<% form_for :stock_photo, @photo, :url => {:action => :index} do |f| %>
+  List stock photos of type: 
+  <select name="stock_type">
+    <%= options_for_select(
+          ::StockPhotosController.stock_types.collect { |t| [t.to_s, t.to_s] }, @stock_type.to_s) %>
+  </select>
+  <%= submit_tag "Save" %>
+<% end %>
+
+<div>
+Listing photos of type <%= @stock_type %>
+</div>
+
+<% @photos.each do |photo| %>
+  <div>
+    <%= image_tag photo.versions[:original].url, :size => '50x50' %>
+    <%= link_to( "delete", {:action => :destroy, :id => photo.id}, :method => :post) %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "add_photo", :action => 'new' %>
+</div>

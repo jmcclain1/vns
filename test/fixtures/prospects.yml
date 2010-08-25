@@ -1,0 +1,52 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: prospects
+#
+#  id            :integer(11)     not null, primary key
+#  created_at    :datetime        
+#  updated_at    :datetime        
+#  listing_id    :integer(11)     
+#  dealership_id :integer(11)     
+#  prospector_id :integer(11)     
+#  watch         :boolean(1)      
+#  source        :string(255)     default("")
+#  last_activity :datetime        
+#  lost_interest :boolean(1)      
+#
+
+charlies_interested_in_bobs_listing_1:
+  id: 29001
+  updated_at: 2007-07-05 02:00:00 -07:00
+  listing_id: 21001
+  dealership_id: 23002
+  prospector_id: 3
+  watch: false
+  source: Find Vehicle
+
+rob_interested_in_bobs_listing_1:
+  id: 29002
+  updated_at: 2007-07-05 02:30:00 -07:00
+  listing_id: 21001
+  dealership_id: 23003
+  prospector_id: 5
+  watch: false
+  source: Find Vehicle
+
+rob_interested_in_jetta_listing_2:
+  id: 29003
+  updated_at: 2007-07-05 02:35:00 -07:00
+  listing_id: 21002
+  dealership_id: 23003
+  prospector_id: 5
+  watch: false
+  source: Find Vehicle
+
+charlies_interested_in_alices_listing_1:
+  id: 29004
+  updated_at: 2007-07-05 03:00:00 -07:00
+  listing_id: 21007
+  dealership_id: 23002
+  prospector_id: 3
+  watch: false
+  source: Find Vehicle

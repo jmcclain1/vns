@@ -1,0 +1,238 @@
+@import 'base.css';
+@import 'navbar.css';
+@import 'details_box.css';
+
+/* elements                                                                  */
+/*****************************************************************************/
+
+
+body {
+  min-width:        800px;
+}
+
+h1 {
+  font-size:        1.5em;
+}
+
+h3 {
+  margin:           0 0 .5em 0;
+}
+
+input, textarea, select {
+  margin:           0;
+  border: 1px solid #9C9C9C;
+}
+
+label {
+  margin: 0 1em 0 0;
+}
+
+a {
+  color: #233E83;
+}
+
+form {
+  margin: 0;
+}
+
+/* global IDs                                                                */
+/*****************************************************************************/
+#header {
+  background:       #FFF url("/images/backgrounds/page_header.png") repeat-y top right;
+  width: 100%;
+  height: 52px;
+}
+
+#header a {
+  font-size: .8em;
+}
+
+#main {
+  padding:          0 0 0 0;
+}
+
+#logo_image {
+  float: left;
+}
+
+#header_nav {
+  margin: 10px 0 0 30px;
+  float: left;
+}
+
+#header_patent {
+	float: right;
+	padding: 3.5em .5em 0 0;
+	text-align: right;
+	color: #777777;
+	font-size: .75em;
+}
+
+/* general-purpose classes                                                   */
+/*****************************************************************************/
+.clear {
+  clear: both;
+}
+.clear_left {
+  clear: left;
+}
+
+#scrollable_content {
+  padding: 1em;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+
+#ajax_login_form {
+  position: absolute;
+  top: 1.1em;
+  border: 1px solid black;
+  width: 25em;
+  padding: 10px;
+  background-color: white;
+}
+
+.flash_notice {
+  padding: 0;
+  margin:  0;
+  color: red;
+}
+
+div.flash_notice {
+  margin: 1em 0;
+  padding: 1em 0;
+}
+div.flash_notice ul {
+  margin: 0;
+  padding: .3em 0 0 2em;
+}
+div.flash_notice ul li {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.h_list {
+  padding: 0;
+  margin: 0;
+  float: left;
+  list-style: none;
+  width: 100%;
+}
+
+.h_list li {
+  list-style-image: none;
+  display: block;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+
+ul.fields_list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;
+}
+
+ul.fields_list li {
+  list-style-image: none;
+  margin: 0 0 .2em 0;
+  padding: 0;
+/*  height: 1.7em; */
+}
+
+.currency_symbol {
+  padding-right: .25em;
+}
+
+.field_example {
+  padding-left: .25em;
+}
+
+/* Buttons                                                                   */
+/*****************************************************************************/
+
+a.button, a.task_button {
+  float: left;
+  display: block;
+  margin: .1em;
+  height: 22px;
+  text-decoration: none;
+  color: #000000 !important;
+  padding-right: 3px;
+  outline: none;
+}
+a.button {
+  background: transparent url(/images/buttons/button_r.png) top right no-repeat;
+}
+a.task_button {
+  margin:     1em 0 0 0;
+  background: transparent url(/images/buttons/button_task_r.png) top right no-repeat;
+  float:      right;
+}
+
+a.task_button:hover,
+a.button:hover {
+  background-position: center right;
+  outline: none;
+  cursor: pointer;
+}
+a.task_button:active,
+a.button:active {
+  background-position: bottom right;
+  outline: none;
+  cursor: pointer;
+  padding-top: 1px;
+  padding-left: 1px;
+  margin-bottom: -0.1em;
+}
+a.task_button span,
+a.button span {
+  display: block;
+  float: left;
+  line-height: 18px;
+  outline: none;
+  padding: 2px 1em;
+  h: expression(onmouseover=new Function("this.style.backgroundPosition='center left';"),
+                onmouseout=new Function("this.style.backgroundPosition='top left';"));
+}
+a.button span {
+  background:  transparent url(/images/buttons/button_l.png) no-repeat;
+  white-space: nowrap;
+}
+a.task_button span {
+  background: transparent url(/images/buttons/button_task_l.png) no-repeat;
+}
+a.task_button span:hover,
+a.button span:hover {
+  text-decoration: none;
+  background-position: center left;
+  cursor: pointer;
+}
+a.task_button span:active,
+a.button span:active {
+  text-decoration: none;
+  background-position: bottom left;
+  cursor: pointer;
+}
+
+a.button_disabled,
+a.button_disabled:hover {
+  background-position: top right;
+}
+a.button_disabled span,
+a.button_disabled span:hover {
+  background-position: top left;
+  color:               #999;
+}
+
+.small_button {
+	font-size: .85em;
+}
+
+.inline_form_fields {
+  padding:  0.2em 0 0 0;
+  margin:   0 0.5em 0 0;
+  float:    left;
+}

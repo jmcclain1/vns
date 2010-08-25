@@ -1,0 +1,128 @@
+# == Schema Information
+# Schema version: 52
+#
+# Table name: listings
+#
+#  id                  :integer(11)     not null, primary key
+#  created_at          :datetime        
+#  updated_at          :datetime        
+#  dealership_id       :integer(11)     not null
+#  vehicle_id          :integer(11)     
+#  asking_price        :decimal(11, 2)  
+#  lister_id           :integer(11)     
+#  comments            :text            
+#  auction_duration    :integer(11)     
+#  auction_start       :datetime        
+#  inspection_duration :integer(11)     
+#  accept_trade_rules  :boolean(1)      not null
+#  last_activity       :datetime        
+#  state               :string(255)     default("draft")
+#  winning_prospect_id :integer(11)     
+#
+
+<% now = Time.now - 1.hour %>
+
+bobs_listing_1:
+  id: 21001
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23001
+  vehicle_id: 18001
+  asking_price: 50
+  lister_id: 1
+  state: 'active'
+  accept_trade_rules: true
+
+jetta_listing_2:
+  id: 21002
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23002
+  vehicle_id: 18003
+  asking_price: 5045
+  lister_id: 3
+  state: 'active'
+  accept_trade_rules: true
+
+draft_listing_1:
+  id: 21003
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23001
+  vehicle_id: 18001
+#  asking_price: nil
+  lister_id: 1
+  state: 'draft'
+  accept_trade_rules: false
+
+pivotal_listing_1:
+  id: 21004
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23003
+  vehicle_id: 18009
+  asking_price: 5065
+  lister_id: 5
+  state: 'active'
+  accept_trade_rules: true
+
+pivotal_listing_2:
+  id: 21005
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23003
+  vehicle_id: 18010
+  asking_price: 5055
+  lister_id: 5
+  state: 'active'
+  accept_trade_rules: true
+
+pivotal_listing_3:
+  id: 21006
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23003
+  vehicle_id: 18011
+  asking_price: 5045
+  lister_id: 5
+  state: 'active'
+  accept_trade_rules: true
+
+alices_listing_1:
+  id: 21007
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23001
+  vehicle_id: 18012
+  asking_price: 5005
+  lister_id: 2
+  state: 'active'
+  accept_trade_rules: true
+
+nearly_completed_draft_listing:
+  id: 21009
+  created_at: <%= now.to_mysql %>
+  updated_at: <%= now.to_mysql %>
+  auction_start: <%= now.to_mysql %>
+  auction_duration: 14
+  dealership_id: 23001
+  vehicle_id: 18001
+  asking_price: 12000.45
+  lister_id: 1
+  state: 'draft'
+  accept_trade_rules: true
+  

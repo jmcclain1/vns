@@ -1,0 +1,72 @@
+@import 'vns_common.css';
+
+/*--- Vehicle Listing Grid ---*/
+
+#prospects_grid_innerDiv {
+}
+
+#prospects_grid_outerDiv {
+	border: 1px solid #8B8B8B;
+}
+
+td .ricoLG_col div.ricoLG_cell {
+height:8em;
+}
+
+.ricoLG_table .thumb {
+height: 7em;
+}
+
+#prospects_grid { width: 98%; }
+th.year { width: 4%; }
+th.make { width: 45%; }
+th.mileage { width: 6%; }
+th.distance { width: 9%; }
+th.price { width: 11%; }
+th.activity { width: 10%; }
+th.status { width: 15%; }
+
+#prospects_grid_scrollDiv {
+  overflow: auto;
+}
+
+td span.vin {
+  font-size: .85em;
+  color: #989A99;
+  margin: 0 0 0 .5em;
+}
+
+td div.source {
+  position: relative;
+  height: 4.5em;
+  vertical-align: baseline;
+}
+td div.source span {
+  position: absolute;
+  bottom: 0;
+  font-size: .85em;
+}
+
+td div.listing_details {
+  font-size: .8em;
+}
+
+td span.distance_from {
+  font-size: .85em;
+}
+
+td span.messages {
+  font-size: .9em;
+	display: block;
+	width: 100%;
+}
+
+#prospects_grid_innerDiv .button {
+  margin: .5em 0 0 0;
+}
+
+td div.details {
+  font-size: .85em;
+  height: 2.9em;
+}
+

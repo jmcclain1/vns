@@ -1,0 +1,6 @@
+<% @page_title = 'Sign Up for an Account' %>
+<% form_for :user, :url => users_path do |form| %>
+  <%= render :partial => 'form' %>
+  Check this box if you accept the terms of service: <%= form.check_box :accept_terms_of_service, :id => 'accept_terms_of_service' %><br/>
+  <%= submit_tag "Sign up", :id=>"signup_button" %>
+<% end %>

@@ -1,0 +1,219 @@
+#details {
+  padding: 0;
+  background: #EAEAEA;
+  clear: both;
+}
+
+#details #scrollable_content {
+  padding: 0 2em 2em 0;
+}
+
+#details h2 {
+	float: left;
+	margin: 0pt 1em 0pt 0pt;
+}
+
+#details #edit_vehicle_details_display h2 {
+/*	width: 100%;*/
+}
+
+#details #messages_offers_table h2 {
+	width: 100%;
+}
+
+#details .content {
+  background: #FFFFFF;
+  border: 1px solid #888888;
+  padding: 1em;
+}
+
+#details .content h3 {
+  background: #EBEBEB;
+  padding: .35em;
+  margin: 1em 0 1em -.5em;
+}
+
+#details fieldset {
+  border: none;
+  margin: 1em 0;
+  padding: 0;
+  width: 100%;
+}
+
+#details .carfax_logo {
+  float: right;
+  margin: 0 1em 0 0;
+}
+
+#details table#review {
+	float: left;
+}
+
+#details table#review td {
+  vertical-align:   top;
+  padding: .15em 0;
+}
+
+#details table#review td.label_col {
+  width: 11em;
+}
+
+/* Details Tabs */
+
+#details_tabs input {
+  float: right;
+  margin: 0 2em 0 0;
+}
+
+#details_tabs {
+  background: #F4F4F4 url(/images/tabs/detail-tab-box_border.png) bottom repeat-x;
+  height: 2em;
+  margin: 0;
+  padding: 0 .1em;
+}
+
+#details_tabs .tertiary_tab a {
+  background: url(/images/tabs/detail-tab_left.png) top left no-repeat;
+  padding: .3em 0 .15em 1.1em;
+  color: #333333;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: .9em;
+  margin: .1em 0 0 0;
+  outline: none;
+}
+#details_tabs .tertiary_tab a:hover {
+  color: #233E83;
+}
+
+#details_tabs .tertiary_tab {
+  float: left;
+  background: url(/images/tabs/detail-tab_right.png) top right no-repeat;
+  padding: .3em 1.1em .15em 0;
+  margin: .4em 0 0 .2em;
+}
+
+#details_tabs .active_tab a {
+  background: url(/images/tabs/detail-active-tab_left.png) top left no-repeat;
+  padding: .4em 0 .25em 1.1em;
+  color: #333333;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: .9em;
+  outline: none;
+}
+#details_tabs .active_tab a:hover {
+  color: #333333;
+}
+
+#details_tabs .active_tab {
+  float: left;
+  background: url(/images/tabs/detail-active-tab_right.png) top right no-repeat;
+  padding: .4em 1.1em .25em 0;
+  margin: .3em 0 0 .3em;
+}
+
+#details_tabs form {
+	float: right;
+	padding: 0 1em;
+}
+
+/*--- Edit Popup ---*/
+.edit_popup {
+  background-color: #eee;
+	border: 1px solid #888888;
+}
+
+.edit_popup h3,
+.task_box .content .edit_popup h3 {
+  color:            #000000;
+  padding:          .3em 0 .3em 27px;
+  margin:           0;
+  background:       #FECA26 url(/images/icons/edit_notepad.png) 5px 5px no-repeat;
+}
+
+.edit_popup .popup_content {
+  padding:          1.5em;
+  background-color: #fff;
+  overflow:         auto;
+}
+
+.edit_popup .popup_content select,
+.edit_popup .popup_content textarea {
+  width:            26em;
+}
+
+.edit_popup .popup_content input,
+.edit_popup .popup_content select,
+.edit_popup .popup_content textarea {
+  margin:           0.25em 0;
+}
+
+.edit_popup .popup_content label.header {
+	font-weight: bold;
+	display: block;
+	margin: .4em 0 0 0;
+}
+
+.edit_popup .popup_footer {
+  text-align:       right;
+  padding:          0.5em 0.25em;
+	background:				#FFF;
+}
+
+.edit_popup .popup_footer a {
+  margin:           0 0.25em;
+	float: right;
+}
+
+.edit_popup .popup_footer input {
+  background:       #fff;
+  margin:           0 0.25em;
+	float: right;
+}
+
+.edit_popup .popup_footer .progress_indicator {
+  margin:           0 0.25em;
+}
+
+/* Features Box */
+#vehicle_equipment_list {
+  margin: 0 0 2em 0;
+}
+
+#vehicle_equipment_list div span {
+  padding: .2em;
+  font-size: .9em;
+}
+
+#vehicle_equipment_list div.left {
+  float: left;
+  width: 45%;
+}
+
+#vehicle_equipment_list div.right {
+  float: right;
+  width: 45%;
+}
+
+#vehicle_equipment_list ul {
+  list-style: disc inside;
+  padding-left: 1em;
+}
+
+#vehicle_equipment_list li {
+  width: 45%;
+  float: left;
+  font-size: .9em;
+}
+
+#vehicle_equipment_list div input {
+  margin-right: -1.5em;
+  float: left;
+  border: 0;
+}
+
+#vehicle_equipment_list div span {
+  display: block;
+  padding-left: 1.8em;
+}

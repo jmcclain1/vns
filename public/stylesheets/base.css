@@ -1,0 +1,33 @@
+html, body {
+  height:           100%;
+}
+
+body {
+  margin:           0;
+  padding:          0;
+  background:       #F4F4F4;
+}
+
+body, div, table, tr, td {
+  font:             10pt Arial, sans-serif;
+  color:            #323232;
+}
+
+h1, h2, h3 {
+  color: #000000;
+}
+
+span {
+  font:             Arial, sans-serif;
+}
+
+table, td {
+  border:           none;
+  padding:          0;
+  margin:           0;
+  border-collapse:  collapse;
+}
+
+img {
+  border:           0;
+}

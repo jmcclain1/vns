@@ -1,0 +1,41 @@
+manage_subnavbar :active_tab => 'Partner Manager'
+
+div :id => 'invite_box' do
+  link_to 'Add some partners, please!', :action => :add_partners_TEMP_DANGEROUS
+end
+
+
+div :id => 'details_tabs' do
+  tertiary_tab('my_partners', true)
+  tertiary_tab('received_invitiations')
+  tertiary_tab('invitiations_sent')
+end
+div :id => 'details' do
+  div :id => 'scrollable_content' do
+
+    p(:id => 'partners_grid_bookmark')
+
+    div :id => 'partners_listing' do
+      table(:id => 'partners_grid') do
+        tr do
+          th(:class => 'name')  { "Name and Dealership" }
+          th(:class => 'vns_sn') { "VNS Screen Name" }
+          th(:class => 'distance') { "Distance" }
+          th(:class => 'status') { "Status" }
+        end
+      end
+    end
+  end
+end
+
+javascript_tag """
+function init_livegrid() {
+  partnersTable = new Rico.LiveGrid(
+    'partners_grid',
+    new Rico.Buffer.AjaxSQL('#{partners_path}', {'isEncoded': false}),
+    {'hdrIconsFirst': false}
+  );
+}
+Rico.loadModule('LiveGridAjax');
+Rico.include('partners_grid.css');
+Rico.onLoad(init_livegrid)"""

@@ -1,0 +1,2 @@
+class MalformedXmlException < Exception
+end

@@ -1,0 +1,35 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1 "Create Wholesale Listing"
+end
+
+text render(:partial => '/listings/wizard/wizard_bar', :locals => { :current_step => 2 })
+
+task_box(self) do
+  td.helper do
+    div.container do
+      h3 do
+        span :class => 'step' do
+          text "Step 2: "
+        end
+        text "Complete Vehicle Information"
+      end
+    end
+  end
+  td.content do
+    render_error_messages
+
+    h3 "Review Vehicle Details and Features"
+
+    text render(:partial => 'vehicles/details', :locals => { :read_only => false, :seller_view => true })
+  end
+end
+
+form_tag(listing_info_path(@listing).to_s, {:id => 'listing_form', :method => :put})
+  form_btn 'Proceed to Specify Terms', :id => 'proceed_button', :class => 'task_button', :onclick => "$('listing_form').submit();"
+end_form_tag

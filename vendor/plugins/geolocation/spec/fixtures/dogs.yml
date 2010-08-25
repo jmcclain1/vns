@@ -1,0 +1,10 @@
+dog_1:
+  id: 1
+  name: Dog 1
+  location_id: 1
+
+dog_2:
+  id: 2
+  name: Dog 2
+  location_id: 3
+

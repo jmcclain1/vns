@@ -1,0 +1,36 @@
+content_for(:subnav) do
+  form_tag(new_listing_path().to_s, {:id => "create_new_listing_form", :style => 'float: right; padding: 0 1em;'})
+    form_btn "Create New Listing", :onclick => "$('create_new_listing_form').submit();"
+  end_form_tag
+end
+
+content_for(:task_title) do
+  h1.task "Create Wholesale Listing"
+end
+
+form_tag(listing_recipients_path(@listing).to_s, {:id => 'listing_form', :method => :put})
+
+  text render(:partial => '/listings/wizard/wizard_bar', :locals => { :current_step => 4 })
+
+  task_box(self) do
+    td.helper do
+      h3 do
+        span :class => 'step' do
+          text "Step 4: "
+        end
+        text "Specify Recipients"
+      end
+      p "Specify your partners that you would like to receive a listing announcement."
+    end
+    td.content do
+      render_error_messages
+
+      h3 "Select from your Trusted Partners"
+      partners_table(partners)
+
+    end
+  end
+
+  form_btn 'Proceed to Verify and Create', :id => 'proceed_button', :class => 'task_button', :onclick => "$('listing_form').submit();"
+
+end_form_tag

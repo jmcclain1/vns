@@ -1,0 +1,14 @@
+table.partners {
+  border: 1px solid gray;
+}
+
+table.partners th {
+  padding: .5em;
+  background: #D3D3D3;
+  border-bottom: 1px solid gray;
+}
+
+table.partners td {
+  padding: .5em;
+}
+

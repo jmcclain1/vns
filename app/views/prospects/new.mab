@@ -1,0 +1,72 @@
+content_for(:subnav) do
+  div :class => 'tab' do
+    a 'Inbox', {:href => prospects_path}, :id => 'prospect_inbox'
+  end
+  div :class => 'tab_active' do
+    a 'Find Vehicles', {:href => new_prospect_path}
+  end
+  div :class => 'tab' do
+    a 'Shopping List', {:href => shopping_items_path}
+  end
+  text tablist_paint
+end
+
+div :id => 'scrollable_content' do
+
+  form_for(:shopping_item, @shopping_item, :url => new_prospect_path, :html => {:id => 'search_form'}) do |f|
+    div :class => 'inline_form_fields' do
+      b " Min Year: "
+      text f.text_field(:min_year,     :size => 6)
+      b " Max Year: "
+      text f.text_field(:max_year,     :size => 6)
+      b " Max Mileage: "
+      text f.text_field(:max_odometer, :size => 10)
+      b " Max Distance: "
+      text f.text_field(:max_distance, :size => 10)
+      b " Max Price: "
+      text f.text_field(:max_price,    :size => 10)
+      text " "
+    end
+    form_btn "Search", :id => 'search_vehicles', :onclick => "$('search_form').submit();"
+  end
+
+  p(:id => 'find_listings_grid_bookmark', :class => 'clear')
+
+  div :id => 'find_listings_list' do
+    table(:id => 'find_listings_grid') do
+      tr do
+        th(:class => 'year')     { "Year" }
+        th(:class => 'make')     { "Make/Model" }
+        th(:class => 'mileage')  { "Mileage" }
+        th(:class => 'distance') { "Distance" }
+        th(:class => 'price')    { "Asking Price" }
+        th(:class => 'status')   { "Status" }
+      end # tr
+    end # table.find_listings_grid
+  end # div.find_listings_list
+
+end # div.scrollable_content
+
+javascript_tag """
+function init_livegrid() {
+  findListingsTable = new Rico.LiveGrid(
+    'find_listings_grid',
+    new Rico.Buffer.AjaxSQL(
+      '#{new_prospect_path}',
+      { 'isEncoded': false,
+        'requestParameters':[
+           #{"'filter[min_year]=#{@shopping_item.min_year}',"         if @shopping_item.min_year}
+           #{"'filter[max_year]=#{@shopping_item.max_year}',"         if @shopping_item.max_year}
+           #{"'filter[max_odometer]=#{@shopping_item.max_odometer}'," if @shopping_item.max_odometer}
+           #{"'filter[max_distance]=#{@shopping_item.max_distance}'," if @shopping_item.max_distance}
+           #{"'filter[max_price]=#{@shopping_item.max_price}',"       if @shopping_item.max_price}
+         ]
+      }
+    ),
+    {'hdrIconsFirst': false}
+  );
+}
+Rico.loadModule('LiveGridAjax');
+Rico.include('find_listings_grid.css');
+Rico.onLoad(init_livegrid)
+"""

@@ -1,0 +1,42 @@
+@import 'vns_common.css';
+
+/*--- Vehicle Listing Grid ---*/
+
+#vehicles_grid_innerDiv {
+}
+
+#vehicles_grid_outerDiv {
+	border: 1px solid #8B8B8B;
+}
+
+td .ricoLG_col div.ricoLG_cell {
+height:6em;
+}
+
+.ricoLG_table .thumb {
+height: 5em;
+}
+
+#vehicles_grid { width: 98%; } 
+th.year { width: 7%; }
+th.make { width: 48%; }
+th.days { width: 12%; }
+th.status { width: 23%; }
+
+#vehicles_grid_scrollDiv {
+  overflow: auto;
+}
+
+td span.certified {
+  font-size: .9em;
+}
+
+td span.vin {
+  margin: 0 2em 0 0;
+  color: #000000;
+  font-weight: bold;
+}
+
+td div.number_details {
+  font-size: .9em;
+}

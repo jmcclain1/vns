@@ -1,0 +1,63 @@
+stylesheet "base"
+style do
+  <<-CSS_END
+    #photos_widget {
+      height: 295px;
+      background-color: #FFF;
+      overflow: hidden;
+      zoom: 1;
+      padding: .5em;
+    }
+
+    #preview_container {
+      float: left;
+      height: 210px;
+      width: 280px;
+    }
+
+    #thumbnail_container {
+      float: right;
+      height: 210px;
+      width: 150px;
+      overflow: auto;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    #thumbnail_container img {
+      border: 2px solid #ccc;
+    }
+
+    #thumbnail_container .thumbnail {
+      padding: 2px 2px 1px;
+      cursor: pointer;
+    }
+
+    #thumbnail_container .primary_thumbnail img {
+      border-color: black;
+    }
+
+    #control_container {
+      clear: both;
+      padding: 2px 0;
+    }
+
+    #control_container div {
+      padding-top: 3px;
+      text-align: center;
+    }
+
+    #control_container form {
+      display: inline;
+    }
+
+    #control_container input {
+      margin: 0 3px;
+    }
+    img#preview_photo {
+    }
+  CSS_END
+end
+
+javascript_include_tag :defaults
+vehicle_photos_widget(@vehicle, :read_only => @read_only)

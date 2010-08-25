@@ -1,0 +1,27 @@
+def message_box_style
+  'height: 6em; overflow-y: scroll;' if is_ie? && prospects.size > 3
+end
+
+div :class => 'alert_box', :id => 'buying_alert_box' do
+  h3 do
+    span(:class => 'count') {text "#{pluralize(prospects.size,'listing')}"}
+    text " with new messages"
+  end
+
+  message_box_options = {:class => 'message_box' }
+  message_box_options[:style] = message_box_style  if message_box_style
+
+  div message_box_options do
+    for prospect in prospects
+      div :class => 'item' do
+        div :class => 'title' do
+          link_to prospect.listing.vehicle.display_name, prospect_messages_path(prospect)
+        end
+        div :class => 'messages' do
+          text "New Messages - #{logged_in_user.notifications.alerted.for_prospect(prospect).count}"
+          # text "Unread Messages - #{logged_in_user.notifications.active.for_prospect(prospect).count}"
+        end
+      end
+    end
+  end
+end

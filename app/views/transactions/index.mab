@@ -1,0 +1,31 @@
+transacting_subnavbar :active_tab => 'History'
+
+div :id => 'scrollable_content' do
+  h1 "Completed transactions"
+
+  p(:id => 'transactions_grid_bookmark')
+
+  div :id => 'transactions_listing' do
+    table(:id => 'transactions_grid') do
+      tr do
+      	th { "Buy/Sell" }
+        th(:class => 'year')  { "Year" }
+        th(:class => 'make') { "Make/Model" }
+        th { "Date" }
+        th { "Amount" }
+      end
+    end
+  end
+end
+
+javascript_tag """
+function init_livegrid() {
+  transactionsTable = new Rico.LiveGrid(
+    'transactions_grid',
+    new Rico.Buffer.AjaxSQL('#{transactions_path}', {'isEncoded': false}),
+    {'hdrIconsFirst': false}
+  );
+}
+Rico.loadModule('LiveGridAjax');
+Rico.include('transactions_grid.css');
+Rico.onLoad(init_livegrid)"""
