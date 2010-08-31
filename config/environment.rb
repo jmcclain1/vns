@@ -13,7 +13,14 @@ module Rails
     end
   end
 end
-
+# this is added so that we can get the GEM::Version::NUM_RE defined before it is used
+# this should NOT be added to svn - foiund this solution on 
+# http://groups.google.com/group/rubyonrails-talk/browse_thread/thread/484e09d92b2d9db4#a9adf1301cb66fc1
+module Gem
+  class Version
+    NUM_RE = /\s*(\d+(\.\d+)*)*\s*/
+  end
+end 
 Rails::Initializer.run do |config|
   config.plugin_paths = [
     RAILS_ROOT + '/vendor/plugins/prerequisites',
